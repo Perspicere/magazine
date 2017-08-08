@@ -8,23 +8,40 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import 'babel-polyfill';
-import 'whatwg-fetch';
+import 'babel-polyfill'
+import 'whatwg-fetch'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import FastClick from 'fastclick';
-import { Provider } from 'react-redux';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import FastClick from 'fastclick'
+import { Provider } from 'react-redux'
 
-import store from './core/store';
-import router from './core/router';
-import history from './core/history';
+import store from './core/store'
+import router from './core/router'
+import history from './core/history'
 
-let routes = require('./routes.json'); // Loaded with utils/routes-loader.js
-const container = document.getElementById('container');
+// material-ui related import, dark theme
+import injectTapEventPlugin from 'react-tap-event-plugin'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin()
+
+let routes = require('./routes.json') // Loaded with utils/routes-loader.js
+const container = document.getElementById('container')
+
+// Wrapped with material-ui darkBaseTheme
 function renderComponent(component) {
-  ReactDOM.render(<Provider store={store}>{component}</Provider>, container);
+  ReactDOM.render(
+    <Provider store={store}>
+      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        {component}
+      </MuiThemeProvider>
+    </Provider>,
+  container)
 }
 
 // Find and render a web page matching the current URL path,
@@ -38,17 +55,17 @@ function render(location) {
 // Handle client-side navigation by using HTML5 History API
 // For more information visit https://github.com/ReactJSTraining/history/tree/master/docs#readme
 history.listen(render);
-render(history.getCurrentLocation());
+render(history.getCurrentLocation())
 
 // Eliminates the 300ms delay between a physical tap
 // and the firing of a click event on mobile browsers
 // https://github.com/ftlabs/fastclick
-FastClick.attach(document.body);
+FastClick.attach(document.body)
 
 // Enable Hot Module Replacement (HMR)
 if (module.hot) {
   module.hot.accept('./routes.json', () => {
-    routes = require('./routes.json'); // eslint-disable-line global-require
-    render(history.getCurrentLocation());
+    routes = require('./routes.json') // eslint-disable-line global-require
+    render(history.getCurrentLocation())
   });
 }
