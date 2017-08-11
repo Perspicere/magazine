@@ -1,7 +1,10 @@
 import React from 'react'
+import AppBar from 'material-ui/AppBar';
+
 import Navigation from './Navigation'
 import Link from '../Link'
 import styles from './styles.js'
+import imgSrc from '../../docs/卷首语/主题.jpg'
 
 class Header extends React.Component {
 
@@ -20,17 +23,16 @@ class Header extends React.Component {
         ref={node => (this.root = node)}
         style={styles.header}
       >
-        <div className={`mdl-layout__header-row`} style={styles.row}>
-          <Link
-            className={`mdl-layout-title`}
-            to="/"
+        <img src={imgSrc} style={styles.image}/>
+        <AppBar className={`mdl-layout__header-row`} style={styles.TopBar}>
+          <div
             style={styles.title}
           >
             视角
-          </Link>
+          </div>
           <div className="mdl-layout-spacer"></div>
           <Navigation />
-        </div>
+        </AppBar>
       </header>
     );
   }

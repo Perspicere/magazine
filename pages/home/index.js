@@ -18,7 +18,6 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <TopicEntry/>
         <Layout className={s.content}>
           <div dangerouslySetInnerHTML={{ __html: html }} />
           <h4>Articles</h4>
