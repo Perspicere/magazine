@@ -1,42 +1,34 @@
+// external import
 import React from 'react'
-import AppBar from 'material-ui/AppBar';
+import PropTypes from 'prop-types'
 
-import Navigation from './Navigation'
+// internal import
+import AppBar from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton'
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+
+// local import
 import Link from '../Link'
 import styles from './styles.js'
-import imgSrc from '../../docs/卷首语/主题.jpg'
 
-class Header extends React.Component {
+const Header = ({toggleMenu}) => (
+  <AppBar
+    style={styles.TopBar}
+    iconElementLeft={<div/>}
+    title={"视 角"}
+    titleStyle={styles.title}
+    iconElementRight={
+      <IconButton>
+        <MoreVertIcon color={'white'} />
+      </IconButton>}
+    iconStyleRight={{marginTop: 0}}
+    onRightIconButtonTouchTap={toggleMenu}
+    >
+  </AppBar>
+)
 
-  componentDidMount() {
-    window.componentHandler.upgradeElement(this.root);
-  }
-
-  componentWillUnmount() {
-    window.componentHandler.downgradeElements(this.root);
-  }
-
-  render() {
-    return (
-      <header
-        className={`mdl-layout__header`}
-        ref={node => (this.root = node)}
-        style={styles.header}
-      >
-        <img src={imgSrc} style={styles.image}/>
-        <AppBar className={`mdl-layout__header-row`} style={styles.TopBar}>
-          <div
-            style={styles.title}
-          >
-            视角
-          </div>
-          <div className="mdl-layout-spacer"></div>
-          <Navigation />
-        </AppBar>
-      </header>
-    );
-  }
-
+Header.propTypes = {
+  showMore: PropTypes.func,
 }
 
-export default Header;
+export default Header

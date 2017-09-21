@@ -1,35 +1,37 @@
-import React, { PropTypes } from 'react'
+// external import
+import React from 'react'
+import PropTypes from 'prop-types'
 import cx from 'classnames'
+
+// local import
 import Header from './Header'
 import Footer from '../Footer'
 import styles from './styles.js'
 
+
+
 class Layout extends React.Component {
 
   static propTypes = {
-    className: PropTypes.string,
-  };
-
-  componentDidMount() {
-    window.componentHandler.upgradeElement(this.root);
-  }
-
-  componentWillUnmount() {
-    window.componentHandler.downgradeElements(this.root);
+    mainImg: PropTypes.string,
+    toggleMenu: PropTypes.func,
+    issueNumber: PropTypes.string,
+    issueTitle: PropTypes.string,
+    issueDisc: PropTypes.string,
   }
 
   render() {
+    const { mainImg, toggleMenu } = this.props
     return (
-      <div className="mdl-layout mdl-js-layout" ref={node => (this.root = node)}>
-        <div className="mdl-layout__inner-container">
-          <Header />
-          <main className="mdl-layout__content">
-            <div {...this.props} className={cx(styles.content, this.props.className)} />
-            <Footer />
-          </main>
+      <div style={styles.LayoutContainer}>
+        <Header
+          toggleMenu={toggleMenu}
+        />
+        <div style={styles.imageContainer}>
+          <img src={mainImg} style={styles.image}/>
         </div>
       </div>
-    );
+    )
   }
 }
 
