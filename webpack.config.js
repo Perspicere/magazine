@@ -95,7 +95,7 @@ const config = {
           path.resolve(__dirname, './pages'),
           path.resolve(__dirname, './main.js'),
         ],
-        loader: `babel-loader?${JSON.stringify(babelConfig)}`,
+        loader: `babel-loader?${JSON.stringify(babelConfig)}`
       },
       {
         test: /\.css/,

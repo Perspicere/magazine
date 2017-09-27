@@ -1,42 +1,34 @@
-/**
- * React Static Boilerplate
- * https://github.com/kriasoft/react-static-boilerplate
- *
- * Copyright © 2015-present Kriasoft, LLC. All rights reserved.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.txt file in the root directory of this source tree.
- */
+// external import
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import React from 'react';
-import Navigation from './Navigation';
-import Link from '../Link';
-import s from './Header.css';
+// internal import
+import AppBar from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton'
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 
-class Header extends React.Component {
+// local import
+import Link from '../Link'
+import styles from './styles.js'
 
-  componentDidMount() {
-    window.componentHandler.upgradeElement(this.root);
-  }
+const Header = ({toggleMenu}) => (
+  <AppBar
+    style={styles.TopBar}
+    iconElementLeft={<div/>}
+    title={"视 角"}
+    titleStyle={styles.title}
+    iconElementRight={
+      <IconButton>
+        <MoreVertIcon color={'white'} />
+      </IconButton>}
+    iconStyleRight={{marginTop: 0}}
+    onRightIconButtonTouchTap={toggleMenu}
+    >
+  </AppBar>
+)
 
-  componentWillUnmount() {
-    window.componentHandler.downgradeElements(this.root);
-  }
-
-  render() {
-    return (
-      <header className={`mdl-layout__header ${s.header}`} ref={node => (this.root = node)}>
-        <div className={`mdl-layout__header-row ${s.row}`}>
-          <Link className={`mdl-layout-title ${s.title}`} to="/">
-            React Static Boilerplate
-          </Link>
-          <div className="mdl-layout-spacer"></div>
-          <Navigation />
-        </div>
-      </header>
-    );
-  }
-
+Header.propTypes = {
+  showMore: PropTypes.func,
 }
 
-export default Header;
+export default Header
