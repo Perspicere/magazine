@@ -1,4 +1,4 @@
-> 模板使用： [**React Static Boilerplate**](https://github.com/kriasoft/react-static-boilerplate)
+> 模板使用： [**React Static Boilerplate**](https://github.com/kriasoft/react-static-boilerplate)。发布地址：https://perspicere.github.io/PerspicereMagazine/
 
 ### 包含功能
 
@@ -71,7 +71,7 @@ $ npm run test                  # Run unit tests. Or, `npm run test:watch`
 ```shell
 $ node run publish              # Build and publish the website to Firebase, same as `npm run publish`
 ```
-如果仅仅需要构建：
+网站会发布在https://perspicere.github.io/PerspicereMagazine/。如果仅仅需要构建：
 ```shell
 $ node run build                # Or, `node run build --release` for production build
 ```
