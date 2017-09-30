@@ -1,6 +1,6 @@
-> Setup from [**React Static Boilerplate**](https://github.com/kriasoft/react-static-boilerplate)
+> 模板使用： [**React Static Boilerplate**](https://github.com/kriasoft/react-static-boilerplate)
 
-### Features
+### 包含功能
 
 &nbsp; &nbsp; ✓ Modern JavaScript syntax ([ES2015](http://babeljs.io/docs/learn-es2015/)+) via [Babel](http://babeljs.io/), modern CSS syntax via [PostCSS](https://github.com/postcss/postcss)<br>
 &nbsp; &nbsp; ✓ Component-based UI architecture via [React](http://facebook.github.io/react/), [Webpack](https://webpack.github.io/) and [CSS Modules](https://github.com/css-modules/css-modules)<br>
@@ -11,13 +11,8 @@
 &nbsp; &nbsp; ✓ Cross-device testing with [Browsersync](https://browsersync.io/) (see [`run.js#start`](run.js))<br>
 &nbsp; &nbsp; ✓ **24/7** community support on [Gitter](https://gitter.im/kriasoft/react-static-boilerplate); customization requests on [Codementor](https://www.codementor.io/koistya)<br>
 
-**Demo**: https://rsb.kriasoft.com &nbsp;|&nbsp; **View** [docs](./docs) &nbsp;|&nbsp; **Follow us** on
-[Gitter](https://gitter.im/kriasoft/react-static-boilerplate), [Twitter](https://twitter.com/ReactStatic),
-or [ProductHunt](https://www.producthunt.com/tech/react-static-boilerplate) &nbsp;|&nbsp;
-**Send feedback** to [@koistya](https://twitter.com/koistya)
 
-
-### Directory Layout
+### 文件树
 
 ```shell
 .
@@ -50,22 +45,20 @@ or [ProductHunt](https://www.producthunt.com/tech/react-static-boilerplate) &nbs
 └── webpack.config.js           # Bundling and optimization settings for Webpack
 ```
 
-### Getting Started
+### 使用
 
-**Step 1**. Compile and launch your app by running:
+**启动**
 
 ```shell
 $ node run                      # Same as `npm start` or `node run start`
 ```
 
-You can also test your app in release (production) mode by running `node run start --release` or
-with HMR and React Hot Loader disabled by running `node run start --no-hmr`. The app should become
-available at [http://localhost:3000/](http://localhost:3000/).
+启动发布模式： `node run start --release` ，也可以取消 HMR与React Hot Loader：`node run start --no-hmr`。应用的地址会在[http://localhost:3000/](http://localhost:3000/).
 
 
-### How to Test
+### 测试
 
-The unit tests are powered by [chai](http://chaijs.com/) and [mocha](http://mochajs.org/).
+单元测试通过 [chai](http://chaijs.com/) 与 [mocha](http://mochajs.org/)进行。
 
 ```shell
 $ npm run lint                  # Check JavaScript and CSS code for potential issues
@@ -73,30 +66,17 @@ $ npm run test                  # Run unit tests. Or, `npm run test:watch`
 ```
 
 
-### How to Deploy
-
-Update `publish` script in the [`run.js`](run.js) file with your full Firebase project name as found
-in your [Firebase console](https://console.firebase.google.com/). Note that this may have an
-additional identifier suffix than the shorter name you've provided. Then run: 
-
+### 部署
+发布：
 ```shell
 $ node run publish              # Build and publish the website to Firebase, same as `npm run publish`
 ```
-
-The first time you publish, you will be prompted to authenticate with Google and generate an
-authentication token in order for the publish script to continue.
-
-![publish](https://koistya.github.io/files/react-static-boilerplate-publish.gif)
-
-If you need just to build the project without publishing it, run:
-
+如果仅仅需要构建：
 ```shell
 $ node run build                # Or, `node run build --release` for production build
 ```
 
-### How to Update
-
-You can always fetch and merge the recent changes from this repo back into your own project:
+### 更行模板
 
 ```shell
 $ git checkout master
