@@ -9,8 +9,7 @@ import Footer from '../Footer'
 import styles from './styles.js'
 
 
-
-class Layout extends React.Component {
+export default class Layout extends React.Component {
 
   static propTypes = {
     mainImg: PropTypes.string,
@@ -21,18 +20,16 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { mainImg, toggleMenu } = this.props
+    const { toggleMenu } = this.props
     return (
       <div style={styles.LayoutContainer}>
         <Header
           toggleMenu={toggleMenu}
         />
-        <div style={styles.imageContainer}>
-          <img src={mainImg} style={styles.image}/>
-        </div>
+
+        { this.props.children }
+
       </div>
     )
   }
 }
-
-export default Layout
