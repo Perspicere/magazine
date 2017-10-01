@@ -31,10 +31,4 @@ export default {
     maxWidth: 1000,
     width: "100%"
   },
-  imageContainer: {
-    height: 295,
-  },
-  image: {
-    maxWidth: "100%",
-  }
 }

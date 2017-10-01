@@ -1,5 +1,23 @@
 > 模板使用： [**React Static Boilerplate**](https://github.com/kriasoft/react-static-boilerplate)。发布地址：https://perspicere.github.io/PerspicereMagazine/
 
+###update 2017-10-01
+```
+ 1.使用redux store管理期刊数据，配置页面
+ 2.创建了三个文件夹 
+  articles  放纯粹的markdown文件
+  resources 放通用图片资源和文章涉及的图片  放到一个文件夹方便优化和未来放CDN
+    每一期的图片文件放到一个文件夹
+  store
+    存放主页的配置，以及每一期的文章配置， 包括封面图片简介等等
+    基于redux机制 实现数据和视图分离
+ 3. 目前pages目录一个文件夹即一个模块
+    其中包含container，本模块业务相关的component，css等，
+    而components存放通用组件  
+ 4. 目前文章的图片资源是从docs目录复制过来的，但二者含义不同。 docs可以放任何栏目相关的的原始资料，
+    而resources的期刊目录，则放展示到页面的，会在mark down等地方引用   
+  
+```
+
 ### 包含功能
 
 &nbsp; &nbsp; ✓ Modern JavaScript syntax ([ES2015](http://babeljs.io/docs/learn-es2015/)+) via [Babel](http://babeljs.io/), modern CSS syntax via [PostCSS](https://github.com/postcss/postcss)<br>
