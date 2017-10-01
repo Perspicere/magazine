@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import get from 'lodash/get'
 
-import HomePage from './HomePage'
+import HomePage from './components/HomePage'
 
 const mapStateToProps = (state) => {
   const { common } = state

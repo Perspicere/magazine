@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react'
 
-import Layout from '../../components/Layout'
+import Layout from '../../../components/Layout'
 // import TopicEntry from '../../components/TopicEntry'
 import s from './styles.css'
+
+import Instruction from './Instruction'
 
 export default class HomePage extends React.Component {
 
@@ -22,11 +24,11 @@ export default class HomePage extends React.Component {
   getStyles() {
     return {
       imageContainer: {
-        height: 295,
+        // height: 295,
       },
       image: {
         maxWidth: '100%',
-      },
+      }
     }
   }
   toggleMenu() {
@@ -34,8 +36,6 @@ export default class HomePage extends React.Component {
     console.log('menu toggled')
   }
   render() {
-    console.log(this.props)
-
     const {
       title,
       welcome,
@@ -55,6 +55,8 @@ export default class HomePage extends React.Component {
           <div style={styles.imageContainer}>
             <img src={mainImg} style={styles.image} />
           </div>
+
+          <Instruction {...{ title, welcome, description, mainImg }} />
 
         </Layout>
       </div>
