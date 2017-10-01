@@ -87,10 +87,6 @@
       "transform-runtime"
     ]
   },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": "airbnb"
-  },
   "stylelint": {
     "extends": "stylelint-config-standard",
     "rules": {
