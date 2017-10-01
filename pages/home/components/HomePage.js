@@ -2,9 +2,10 @@ import React, { PropTypes } from 'react'
 
 import Layout from '../../../components/Layout'
 // import TopicEntry from '../../components/TopicEntry'
-import s from './styles.css'
 
 import Instruction from './Instruction'
+import SubjectBanner from './SubjectBanner'
+import ArticleCover from './ArticleCover'
 
 export default class HomePage extends React.Component {
 
@@ -57,6 +58,26 @@ export default class HomePage extends React.Component {
           </div>
 
           <Instruction {...{ title, welcome, description, mainImg }} />
+
+
+          {
+            contents.map((group) => {
+              const chars = group.name.split('')
+
+              return <div>
+                  <SubjectBanner {...{ lText:chars[0], rText:chars[1] }} />
+
+                {
+                  group.items.map((article)=>{
+                    return <ArticleCover {...article}/>
+                  })
+                }
+                </div>
+
+            })
+          }
+
+
 
         </Layout>
       </div>

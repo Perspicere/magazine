@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import get from 'lodash/get'
+// import get from 'lodash/get'
 
 import HomePage from './components/HomePage'
 
