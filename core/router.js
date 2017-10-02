@@ -66,7 +66,7 @@ function resolve(routes, context) {
       });
     }
 
-    return route.load().then(Page => <Page route={route} error={context.error} />);
+    return route.load().then(Page => <Page params={params} route={route} error={context.error} />);
   }
 
   const error = new Error('Page not found');

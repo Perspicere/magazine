@@ -15,6 +15,10 @@
     "page": "./pages/about"
   },
   {
+    "path": "/articles/:module/:name",
+    "page": "./pages/articles"
+  },
+  {
     "path": "/tasks/:status(pending|completed)?",
     "page": "./pages/home"
   }
