@@ -1,5 +1,5 @@
 const initialState = {
-  name: '视界',
+  name: '视角',
   homeJournal: 'journalOne',
 }
 

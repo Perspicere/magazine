@@ -18,14 +18,14 @@ export default function Col({ style, width, fill, mobileMediaQuery, ...rest }) {
           flexProp = `0 0 ${width}`
         // Leave the sizing to flex
         } else {
-          flexProp = `1 1 0`
+          flexProp = '1 1 0'
         }
 
         return (
           <div
             style={{
-              ...{flex: flexProp},
-              ...style
+              ...{ flex: flexProp },
+              ...style,
             }}
             {...rest}
           />

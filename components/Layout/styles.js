@@ -12,7 +12,7 @@ export default {
     position: 'absolute',
     height: dims.topBar,
     top: 0,
-    backgroundColor: colors.darkOverlay,
+    backgroundColor: colors.black,
   },
   title: {
     color: colors.white,

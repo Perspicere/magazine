@@ -6,6 +6,7 @@ import Layout from '../../../components/Layout'
 import Instruction from './Instruction'
 import SubjectBanner from './SubjectBanner'
 import ArticleCover from './ArticleCover'
+import styles from './styles'
 
 export default class HomePage extends React.Component {
 
@@ -22,20 +23,12 @@ export default class HomePage extends React.Component {
 
     this.toggleMenu = this.toggleMenu.bind(this)
   }
-  getStyles() {
-    return {
-      imageContainer: {
-        // height: 295,
-      },
-      image: {
-        maxWidth: '100%',
-      }
-    }
-  }
+
   toggleMenu() {
     this.setState({ showMenu: !this.state.showMenu })
     console.log('menu toggled')
   }
+
   render() {
     const {
       title,
@@ -43,14 +36,11 @@ export default class HomePage extends React.Component {
       description,
       mainImg,
       contents,
-
     } = this.props
 
-    const styles = this.getStyles()
     return (
       <div>
         <Layout
-          mainImg={mainImg}
           toggleMenu={this.toggleMenu}
         >
           <div style={styles.imageContainer}>
