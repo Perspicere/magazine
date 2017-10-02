@@ -3,7 +3,7 @@ const config = {
   title: '变迁',
   description: '日新月异的城市，逐渐失控的未来。。。',
   welcome: '欢迎来到第一期，变迁',
-  mainImg: require('../../resources/journalOne/卷首语/1.jpg'), // 卷首图片
+  mainImg: '/resources/journalOne/卷首语/1.jpg', // 卷首图片
 
   contents: [
     {
@@ -17,7 +17,7 @@ const config = {
           `,
           author: '张彤禾',
           time: '12分钟',
-          img: require('../../resources/journalOne/心智/1/1.jpg'),
+          img: '/resources/journalOne/心智/1/1.jpg',
         },
         {
           title: '东三省的东正教',
@@ -27,7 +27,7 @@ const config = {
           `,
           author: '张彤禾',
           time: '12分钟',
-          img: require('../../resources/journalOne/心智/2/1.jpg'),
+          img: '/resources/journalOne/心智/2/1.jpg',
 
         },
         {
@@ -38,7 +38,7 @@ const config = {
           `,
           author: '张彤禾',
           time: '12分钟',
-          img: require('../../resources/journalOne/心智/3/1.jpg'),
+          img: '/resources/journalOne/心智/3/1.jpg',
 
         },
         {
@@ -49,7 +49,7 @@ const config = {
           `,
           author: '张彤禾',
           time: '12分钟',
-          img: require('../../resources/journalOne/心智/4/1.jpg'),
+          img: '/resources/journalOne/心智/4/1.jpg',
         },
       ],
     },
