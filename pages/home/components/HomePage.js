@@ -10,7 +10,7 @@ import ArticleCover from './ArticleCover'
 export default class HomePage extends React.Component {
 
   static propTypes = {
-    articles: PropTypes.array.isRequired,
+   // articles: PropTypes.array.isRequired,
   }
 
   constructor(...args) {

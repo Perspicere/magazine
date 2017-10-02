@@ -1,0 +1,16 @@
+/**
+ * 文章详情页 样式。 转换后的markdown文档
+ */
+
+
+.markdownWrap {
+  padding: 10px;
+}
+.markdownWrap h1 {
+  font-size: 20px;
+  font-weight:bold;
+}
+
+.markdownWrap img{
+  width:100%;
+}
