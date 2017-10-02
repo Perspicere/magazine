@@ -18,6 +18,7 @@ const config = {
           author: '张彤禾',
           time: '12分钟',
           img: '/resources/journalOne/心智/1/1.jpg',
+          link: '/articles/journalOne/aaa',
         },
         {
           title: '东三省的东正教',
@@ -28,6 +29,7 @@ const config = {
           author: '张彤禾',
           time: '12分钟',
           img: '/resources/journalOne/心智/2/1.jpg',
+          link: '/articles/journalOne/aaa',
 
         },
         {
@@ -39,6 +41,7 @@ const config = {
           author: '张彤禾',
           time: '12分钟',
           img: '/resources/journalOne/心智/3/1.jpg',
+          link: '/articles/journalOne/aaa',
 
         },
         {
@@ -50,6 +53,7 @@ const config = {
           author: '张彤禾',
           time: '12分钟',
           img: '/resources/journalOne/心智/4/1.jpg',
+          link: '/articles/journalOne/aaa',
         },
       ],
     },
@@ -64,6 +68,8 @@ const config = {
           `,
           author: '张彤禾',
           time: '12分钟',
+          img: '/resources/journalOne/心智/4/1.jpg',
+          link: '/articles/journalOne/aaa',
         },
       ],
     },
@@ -78,6 +84,8 @@ const config = {
           `,
           author: '张彤禾',
           time: '12分钟',
+          img: '/resources/journalOne/心智/4/1.jpg',
+          link: '/articles/journalOne/aaa',
         },
       ],
     },

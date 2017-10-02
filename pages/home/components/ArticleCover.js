@@ -9,19 +9,19 @@ export default class ArticleCover extends React.Component {
   render() {
 
     const { styles,
-      title, description, author, time, img } = this.props
+      title, description, author, time, img, link } = this.props
     return (
-      <div style={{ ...styles.wrap, backgroundImage: `url(${img})` }} >
-        <div style={styles.innerWrap}>
-          <p style={styles.title}>{title}</p>
-          <div style={styles.description}>{description}</div>
-          <div style={styles.bottomWrap}>
-            <span  style={styles.author}>{author}</span>
-            <span  style={styles.time}>{time}</span>
+        <a href={link} style={{ ...styles.wrap, backgroundImage: `url(${img})` }} >
+          <div style={styles.innerWrap}>
+            <p style={styles.title}>{title}</p>
+            <div style={styles.description}>{description}</div>
+            <div style={styles.bottomWrap}>
+              <span style={styles.author}>{author}</span>
+              <span style={styles.time}>{time}</span>
+            </div>
           </div>
-        </div>
+        </a>
 
-      </div>
     )
   }
 }
@@ -30,6 +30,9 @@ export default class ArticleCover extends React.Component {
 ArticleCover.defaultProps = {
   styles: {
     wrap: {
+      display: 'block',
+      color: '#fff',
+      textDecoration: 'none',
       height: '200px',
       backgroundColor:'#000',
     },
