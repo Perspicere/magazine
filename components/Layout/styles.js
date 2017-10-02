@@ -6,6 +6,7 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
+    paddingTop: '50px',
   },
   TopBar: {
     position: 'absolute',

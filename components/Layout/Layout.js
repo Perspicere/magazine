@@ -12,7 +12,8 @@ import styles from './styles.js'
 export default class Layout extends React.Component {
 
   static propTypes = {
-    mainImg: PropTypes.string,
+    className: PropTypes.string,
+
     toggleMenu: PropTypes.func,
     issueNumber: PropTypes.string,
     issueTitle: PropTypes.string,
@@ -22,7 +23,7 @@ export default class Layout extends React.Component {
   render() {
     const { toggleMenu } = this.props
     return (
-      <div style={styles.LayoutContainer}>
+      <div style={styles.LayoutContainer} className={this.props.className || ''}>
         <Header
           toggleMenu={toggleMenu}
         />
