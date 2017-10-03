@@ -5,10 +5,11 @@ import Header from './Header'
 import { showNavigation } from '../navigation/actions'
 
 const mapStateToProps = (state) => {
-  const { common } = state
+  const { common, header } = state
 
   return {
     common,
+    header,
   }
 }
 

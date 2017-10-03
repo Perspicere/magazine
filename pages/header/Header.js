@@ -12,11 +12,11 @@ import MenuIcon from 'material-ui/svg-icons/navigation/menu'
 import styles from './styles.js'
 
 
-const Header = ({ showNavigation, common }) => (
+const Header = ({ showNavigation, common, header }) => (
   <AppBar
     style={styles.TopBar}
     iconElementLeft={<div/>}
-    title={common.name}
+    title={header.title || common.name}
     titleStyle={styles.title}
     iconElementRight={
       <IconButton>
