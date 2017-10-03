@@ -2,10 +2,8 @@
 title: 信仰的未来的奇点论
 ---
 
-`
-  ![卷首语img](../../resources/journalOne/心智/1/1.jpg "卷首语")
+ ![卷首语img](../../resources/journalOne/心智/1/1.jpg "卷首语")
 
-`
 
 
 ## Cadme comitum fecere

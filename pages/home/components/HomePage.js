@@ -20,14 +20,8 @@ export default class HomePage extends React.Component {
     this.state = {
       showMenu: false,
     }
-
-    this.toggleMenu = this.toggleMenu.bind(this)
   }
 
-  toggleMenu() {
-    this.setState({ showMenu: !this.state.showMenu })
-    console.log('menu toggled')
-  }
 
   render() {
     const {
@@ -36,13 +30,12 @@ export default class HomePage extends React.Component {
       description,
       mainImg,
       contents,
+
     } = this.props
 
     return (
       <div>
-        <Layout
-          toggleMenu={this.toggleMenu}
-        >
+        <Layout>
           <div style={styles.imageContainer}>
             <img src={mainImg} style={styles.image} />
           </div>

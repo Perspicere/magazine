@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import HomePage from './components/HomePage'
 
+
 const mapStateToProps = (state) => {
   const { common } = state
   const { homeJournal } = common  // 获取首页显示哪一期
@@ -13,4 +14,4 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-)(HomePage)
+  )(HomePage)

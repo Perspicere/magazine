@@ -1,7 +1,16 @@
 > 模板使用： [**React Static Boilerplate**](https://github.com/kriasoft/react-static-boilerplate)。发布地址：https://perspicere.github.io/PerspicereMagazine/
 > 设计：https://modao.cc/workspace/apps/pD085D5F0A01503243168249
 
-###update 2017-10-01
+### update 2017-10-03
+1.添加导航页
+2.重构。 由于layout header等组件和业务数据联系紧密，后面也可能有不同视图，
+ 从components移出各自作为独立的模块
+3.redux的对应关系
+  store目录放各个模块的数据配置以及reducer
+  pages目录下则以模块为单位放 container component actions
+  
+
+### update 2017-10-01
 ```
  1.使用redux store管理期刊数据，配置页面
  2.创建了三个文件夹 

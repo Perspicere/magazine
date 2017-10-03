@@ -1,7 +1,13 @@
-// import colors from '../../components/styles/colors'
-// import dims from '../../components/styles/dims'
+import colors from '../../components/styles/colors'
+import dims from '../../components/styles/dims'
 
 export default {
+  show:{ // todo 添加动画？
+    display: 'block',
+  },
+  hide:{
+    display: 'none',
+  },
   navigationWrap: {
     position: 'fixed',
     width: '100%',
@@ -11,25 +17,32 @@ export default {
     background: '#000',
     color: '#fff',
     zIndex: 2000,
-    paddingTop:'50px',
+    paddingTop: '50px',
   },
-  content:{
-    textAlign:'left'
+  TopBar: {
+    position: 'absolute',
+    height: dims.topBar,
+    top: '5px',
+    right: '10px',
+    backgroundColor: colors.black,
   },
-  nav:{
-    fontSize:'20px',
-    fontWeight:'bold',
-    width:'70%',
-    float:'right',
+  content: {
+    textAlign: 'left'
   },
-  title:{
-    borderBottom:'1px solid #fff'
+  nav: {
+    fontSize: '20px',
+    fontWeight: 'bold',
+    width: '70%',
+    float: 'right',
+  },
+  title: {
+    borderBottom: '1px solid #fff'
 
   },
-  link:{
-    display:'block',
-    lineHeight:'30px',
-    borderBottom:'1px solid #fff'
+  link: {
+    display: 'block',
+    lineHeight: '30px',
+    borderBottom: '1px solid #fff'
 
   }
 }

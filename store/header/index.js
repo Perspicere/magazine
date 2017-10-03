@@ -1,5 +1,5 @@
 const initialState = {
-  headerTitle: '视界',  // 是否显示header
+  headerTitle: '视角',
 }
 
 export default () => initialState
