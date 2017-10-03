@@ -1,5 +1,5 @@
 const initialState = {
-  name: '视界',
+  name: '视角',
   homeJournal: 'journalOne',
 
   showHeader: true,       // 是否显示header

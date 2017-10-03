@@ -1,4 +1,5 @@
 > 模板使用： [**React Static Boilerplate**](https://github.com/kriasoft/react-static-boilerplate)。发布地址：https://perspicere.github.io/PerspicereMagazine/
+> 设计：https://modao.cc/workspace/apps/pD085D5F0A01503243168249
 
 ###update 2017-10-01
 ```
