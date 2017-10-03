@@ -5,21 +5,21 @@ import PropTypes from 'prop-types'
 // internal import
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+import MenuIcon from 'material-ui/svg-icons/navigation/menu'
 
 // local import
-import Link from '../Link'
+// import Link from '../Link'
 import styles from './styles.js'
 
 const Header = ({toggleMenu}) => (
   <AppBar
     style={styles.TopBar}
     iconElementLeft={<div/>}
-    title={"视 角"}
+    // title={"视 角"}
     titleStyle={styles.title}
     iconElementRight={
       <IconButton>
-        <MoreVertIcon color={'white'} />
+        <MenuIcon color={'white'} />
       </IconButton>}
     iconStyleRight={{marginTop: 0}}
     onRightIconButtonTouchTap={toggleMenu}

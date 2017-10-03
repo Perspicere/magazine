@@ -1,7 +1,10 @@
-import colors from '../styles/colors'
-import dims from '../styles/dims'
+import colors from '../../components/styles/colors'
+import dims from '../../components/styles/dims'
 
 export default {
+  layoutWrap: {
+    position: 'relative',
+  },
   LayoutContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -30,6 +33,6 @@ export default {
   content: {
     margin: "auto",
     maxWidth: 1000,
-    width: "100%"
+    width: "100%",
   },
 }

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-import Layout from '../../../components/Layout'
+import Layout from '../../layout'
 // import TopicEntry from '../../components/TopicEntry'
 
 import Instruction from './Instruction'

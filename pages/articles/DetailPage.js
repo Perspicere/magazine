@@ -1,7 +1,7 @@
 
 import React, { PropTypes } from 'react'
 
-import Layout from '../../components/Layout'
+import Layout from '../layout'
 import styles from './styles.css'
 
 export default class DetailPage extends React.Component {
