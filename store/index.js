@@ -9,14 +9,14 @@ import navigation from './navigation'
 
 // 每个期刊一个目录
 import journalOne from './journalOne'
-import CurrentIssue from './CurrentIssue'
+import issues from './issues'
 
 const appReducer = combineReducers({
   common,
   header,
   navigation,
   journalOne,
-  CurrentIssue
+  issues
 })
 
 

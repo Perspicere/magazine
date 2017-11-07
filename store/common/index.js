@@ -1,6 +1,6 @@
 const initialState = {
   name: '视角',
-  homeJournal: 'CurrentIssue',
+  homeJournal: 'journalOne',
 
   showHeader: true,       // 是否显示header
   showNavigation: false, // 是否显示导航
