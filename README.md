@@ -14,28 +14,27 @@ TODO:
 
 ### update 2017-10-03
 
-1.添加导航页
-2.重构。 由于layout header等组件和业务数据联系紧密，后面也可能有不同视图，
- 从components移出各自作为独立的模块
-3.redux的对应关系
-  store目录放各个模块的数据配置以及reducer
-  pages目录下则以模块为单位放 container component actions
+1. 添加导航页
+2. 重构。 由于layout header等组件和业务数据联系紧密，后面也可能有不同视图，从components移出各自作为独立的模块
+3. redux的对应关系：store目录放各个模块的数据配置以及reducer；pages目录下则以模块为单位放 container component actions
   
 
 ### update 2017-10-01
 
- 1.使用redux store管理期刊数据，配置页面
- 2.创建了三个文件夹 
+1. 使用redux store管理期刊数据，配置页面
+2. 创建了三个文件夹
+```
   articles  放纯粹的markdown文件
   resources 放通用图片资源和文章涉及的图片  放到一个文件夹方便优化和未来放CDN
     每一期的图片文件放到一个文件夹
   store
     存放主页的配置，以及每一期的文章配置， 包括封面图片简介等等
     基于redux机制 实现数据和视图分离
- 3. 目前pages目录一个文件夹即一个模块
+```
+3. 目前pages目录一个文件夹即一个模块
     其中包含container，本模块业务相关的component，css等，
     而components存放通用组件  
- 4. 目前文章的图片资源是从docs目录复制过来的，但二者含义不同。 docs可以放任何栏目相关的的原始资料，
+4. 目前文章的图片资源是从docs目录复制过来的，但二者含义不同。 docs可以放任何栏目相关的的原始资料，
     而resources的期刊目录，则放展示到页面的，会在mark down等地方引用   
   
 
