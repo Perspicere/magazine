@@ -2,10 +2,10 @@
 > 设计：https://modao.cc/workspace/apps/pD085D5F0A01503243168249
 
 ### update 2017-11-16
-```
+
 1. 加入[PerspicereContent](https://github.com/Perspicere/PerspicereContent)项目用于存放每期杂志内容。该项目会由运营负责更新。
 2. 在redux store中加入issues Class, 负责通过github API从[PerspicereContent](https://github.com/Perspicere/PerspicereContent)中抽取内容，并返回包含内容的promise。函数getAbstracts返回redux使用的config文件。
-```
+
 TODO:
 * 让issues Class写入浏览器cache（可能通过redux store），这样刷新之后issues不需要重新进行抓取。
 * 在redux中加入Promise异步处理机制。
@@ -13,17 +13,17 @@ TODO:
 * 使用github app token，增加api使用次数上限。
 
 ### update 2017-10-03
-```
+
 1.添加导航页
 2.重构。 由于layout header等组件和业务数据联系紧密，后面也可能有不同视图，
  从components移出各自作为独立的模块
 3.redux的对应关系
   store目录放各个模块的数据配置以及reducer
   pages目录下则以模块为单位放 container component actions
-```  
+  
 
 ### update 2017-10-01
-```
+
  1.使用redux store管理期刊数据，配置页面
  2.创建了三个文件夹 
   articles  放纯粹的markdown文件
@@ -38,7 +38,6 @@ TODO:
  4. 目前文章的图片资源是从docs目录复制过来的，但二者含义不同。 docs可以放任何栏目相关的的原始资料，
     而resources的期刊目录，则放展示到页面的，会在mark down等地方引用   
   
-```
 
 ### 包含功能
 
