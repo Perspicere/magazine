@@ -1,14 +1,26 @@
 > 模板使用： [**React Static Boilerplate**](https://github.com/kriasoft/react-static-boilerplate)。发布地址：https://perspicere.github.io/PerspicereMagazine/
 > 设计：https://modao.cc/workspace/apps/pD085D5F0A01503243168249
 
+### update 2017-11-16
+```
+1. 加入[PerspicereContent](https://github.com/Perspicere/PerspicereContent)项目用于存放每期杂志内容。该项目会由运营负责更新。
+2. 在redux store中加入issues Class, 负责通过github API从[PerspicereContent](https://github.com/Perspicere/PerspicereContent)中抽取内容，并返回包含内容的promise。函数getAbstracts返回redux使用的config文件。
+```
+TODO:
+* 让issues Class写入浏览器cache（可能通过redux store），这样刷新之后issues不需要重新进行抓取。
+* 在redux中加入Promise异步处理机制。
+* 去掉material-ui组件。
+* 使用github app token，增加api使用次数上限。
+
 ### update 2017-10-03
+```
 1.添加导航页
 2.重构。 由于layout header等组件和业务数据联系紧密，后面也可能有不同视图，
  从components移出各自作为独立的模块
 3.redux的对应关系
   store目录放各个模块的数据配置以及reducer
   pages目录下则以模块为单位放 container component actions
-  
+```  
 
 ### update 2017-10-01
 ```
