@@ -19,14 +19,28 @@ class Issues {
     // array of submodules
     this.columns = columns
 
-    // initialize Issues content
-    this.content = {}
+    // get local storage
+    this.storage = window.localStorage
 
     // github api
     this.github = axios.create({
       baseURL: 'https://api.github.com/',
       timeout: 10000
     })
+  }
+
+  // get content from local storage
+  get content() {
+    let content = this.storage.getItem('content')
+    if (!content) {
+      return {}
+    }
+    return JSON.parse(content)
+  }
+
+  // store content to local storage
+  set content(tree) {
+    this.storage.setItem('content', JSON.stringify(tree))
   }
 
   // helper function to parse responce, returns an object
