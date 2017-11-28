@@ -1,3 +1,13 @@
+1.3.2 / 2017-09-24
+==================
+
+  * deps: debug@2.6.9
+  * deps: parseurl@~1.3.2
+    - perf: reduce overhead for full URLs
+    - perf: unroll the "fast-path" `RegExp`
+  * deps: setprototypeof@1.1.0
+  * deps: utils-merge@1.0.1
+
 1.3.1 / 2017-05-19
 ==================
 
