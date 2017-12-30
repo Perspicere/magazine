@@ -9,24 +9,17 @@ import { Provider } from 'react-redux'
 import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
-import store from './store'
-// import router from './core/router'
-// import history from './core/history'
-
-import Home from './pages/home'
-import Error from './pages/error'
-
 // material-ui related import, dark theme
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
+import store from './store'
+import routes from './routes'
 
 // Create an enhanced history that syncs navigation events with the store
 const history = syncHistoryWithStore(browserHistory, store)
-
-import routes from './routes'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -36,42 +29,11 @@ injectTapEventPlugin()
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-      <Router history={history} routes={routes()}>
-
-
-      </Router>
+      <Router history={history} routes={routes()}></Router>
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('container')
 )
-
-
-// let routes = require('./routes.json') // Loaded with utils/routes-loader.js
-// const container = document.getElementById('container')
-//
-// // Wrapped with material-ui darkBaseTheme
-// function renderComponent(component) {
-//   ReactDOM.render(
-//     <Provider store={store}>
-//       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-//         {component}
-//       </MuiThemeProvider>
-//     </Provider>,
-//   container)
-// }
-
-// Find and render a web page matching the current URL path,
-// if such page is not found then render an error page (see routes.json, core/router.js)
-// function render(location) {
-//   router.resolve(routes, location)
-//     .then(renderComponent)
-//     .catch(error => router.resolve(routes, { ...location, error }).then(renderComponent));
-// }
-
-// Handle client-side navigation by using HTML5 History API
-// For more information visit https://github.com/ReactJSTraining/history/tree/master/docs#readme
-// history.listen(render);
-// render(history.getCurrentLocation())
 
 // Eliminates the 300ms delay between a physical tap
 // and the firing of a click event on mobile browsers
