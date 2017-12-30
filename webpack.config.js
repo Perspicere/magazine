@@ -95,6 +95,7 @@ const config = {
           path.resolve(__dirname, './pages'),
           path.resolve(__dirname, './main.js'),
           path.resolve(__dirname, './store'),
+          path.resolve(__dirname, './routes.js'),
         ],
         loader: `babel-loader?${JSON.stringify(babelConfig)}`
       },
@@ -115,21 +116,21 @@ const config = {
       },
       {
         test: /\.json$/,
-        exclude: [
-          path.resolve(__dirname, './routes.json'),
-        ],
+        // exclude: [
+        //   path.resolve(__dirname, './routes.json'),
+        // ],
         loader: 'json-loader',
       },
-      {
-        test: /\.json$/,
-        include: [
-          path.resolve(__dirname, './routes.json'),
-        ],
-        loaders: [
-          `babel-loader?${JSON.stringify(babelConfig)}`,
-          path.resolve(__dirname, './utils/routes-loader.js'),
-        ],
-      },
+      // {
+      //   test: /\.json$/,
+      //   include: [
+      //     path.resolve(__dirname, './routes.json'),
+      //   ],
+      //   loaders: [
+      //     `babel-loader?${JSON.stringify(babelConfig)}`,
+      //     path.resolve(__dirname, './utils/routes-loader.js'),
+      //   ],
+      // },
       {
         test: /\.md$/,
         loader: path.resolve(__dirname, './utils/markdown-loader.js'),

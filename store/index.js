@@ -1,5 +1,6 @@
 
 import { createStore, combineReducers } from 'redux'
+import { routerReducer } from 'react-router-redux'
 
 // 通用
 import common from './common'
@@ -16,7 +17,9 @@ const appReducer = combineReducers({
   header,
   navigation,
   journalOne,
-  issues
+  issues,
+
+  routing: routerReducer,
 })
 
 
