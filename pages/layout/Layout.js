@@ -17,10 +17,9 @@ export default class Layout extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div style={styles.layoutWrap} id="outer-container">
-        <Navigation isOpen right pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" }/>
+        <Navigation/>
 
         <div id="page-wrap" style={styles.LayoutContainer} className={this.props.className || ''}>
           <Header/>

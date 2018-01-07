@@ -12,7 +12,7 @@ import styles from './styles.js';
 const Header = ({showNavigation, common, header}) => (
   <Headroom style={styles.TopBar}>
     <div style={styles.title}> {header.title || common.name}</div>
-    <div onClick={showNavigation} style={{ zIndex: 1000, position: 'fixed', width: '24px', height: '20px', right: '36px', top: '15px'}}>
+    <div onClick={showNavigation} style={{ zIndex: 1000, position: 'fixed', width: '24px', height: '20px', right: '20px', top: '15px'}}>
       <span>
       <span style={{ position: 'absolute', height: '20%', left: '0px', right: '0px', top: '0%', opacity: 1, background: '#aaa'}}></span>
       <span style={{ position: 'absolute', height: '20%', left: '0px', right: '0px', top: '40%',opacity: 1, background: '#aaa'}}></span>

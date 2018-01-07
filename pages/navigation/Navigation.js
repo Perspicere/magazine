@@ -10,7 +10,8 @@
 
 import React, { PropTypes } from 'react'
 
-import {slide as Menu} from 'react-burger-menu'
+import {scaleRotate as Menu} from 'react-burger-menu'
+
 import stylesMenu from './styles.menu'
 
 import styles from './styles'
@@ -35,7 +36,7 @@ export default class Navigation extends React.Component {
     } = this.props
 
     return (
-      <Menu width={'80%'} isOpen={ navigation.show } customBurgerIcon={ false } right styles={ stylesMenu } >
+      <Menu pageWrapId="page-wrap" outerContainerId="outer-container" width={'80%'} isOpen={ navigation.show } customBurgerIcon={ false } right styles={ stylesMenu } >
 
         <div style={styles.navigationWrap} className="navigation-wrap">
           {/*<div style={styles.TopBar}>*/}
