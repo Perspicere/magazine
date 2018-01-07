@@ -20,13 +20,10 @@ export default class Layout extends React.Component {
     console.log(this.props)
     return (
       <div style={styles.layoutWrap}>
+        <Header/>
         <div style={styles.LayoutContainer} className={this.props.className || ''}>
-          <Header/>
-
           { this.props.children }
         </div>
-
-
         <Navigation/>
       </div>
 

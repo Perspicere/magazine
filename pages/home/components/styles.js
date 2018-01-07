@@ -1,9 +1,9 @@
 export default {
   imageContainer: {
     height: 295,
-    overflow: 'hide'
+    overflow: 'hide',
   },
   image: {
-    height: '100%'
-  }
+    width: '100%',
+  },
 }

@@ -10,11 +10,6 @@
 
 import React, { PropTypes } from 'react'
 
-// import Link from '../Link';
-// import AppBar from 'material-ui/AppBar'
-import IconButton from 'material-ui/IconButton'
-import CloseIcon from 'material-ui/svg-icons/navigation/close'
-
 import styles from './styles'
 
 export default class Navigation extends React.Component {
@@ -38,9 +33,9 @@ export default class Navigation extends React.Component {
     return (
       <div style={styles.navigationWrap} className="navigation-wrap">
         <div style={styles.TopBar}>
-          <IconButton onClick={hideNavigation}>
-            <CloseIcon color={'white'} />
-          </IconButton>
+          <div onClick={hideNavigation}>
+            <div color={'white'} />
+          </div>
         </div>
 
        <div style={styles.content}>

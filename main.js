@@ -11,9 +11,6 @@ import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 
 // material-ui related import, dark theme
 import injectTapEventPlugin from 'react-tap-event-plugin'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 import store from './store'
 import routes from './routes'
@@ -28,9 +25,9 @@ injectTapEventPlugin()
 
 ReactDOM.render(
   <Provider store={store}>
-    <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+    {/*<MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>*/}
       <Router history={history} routes={routes()}></Router>
-    </MuiThemeProvider>
+    {/*</MuiThemeProvider>*/}
   </Provider>,
   document.getElementById('container')
 )
