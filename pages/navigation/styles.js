@@ -9,7 +9,7 @@ export default {
     display: 'none',
   },
   navigationWrap: {
-    position: 'fixed',
+    position: 'relative',
     width: '100%',
     height: '100%',
     top: 0,
@@ -17,15 +17,16 @@ export default {
     background: '#000',
     color: '#fff',
     zIndex: 2000,
-    paddingTop: '50px',
+    overflow: 'auto',
   },
-  TopBar: {
-    position: 'absolute',
-    height: dims.topBar,
-    top: '5px',
-    right: '10px',
-    backgroundColor: colors.black,
-  },
+  // TopBar: {
+  //   position: 'absolute',
+  //   height: dims.topBar,
+  //   width: dims.topBar,
+  //   top: '5px',
+  //   right: '10px',
+  //   backgroundColor: colors.black,
+  // },
   content: {
     textAlign: 'left'
   },
@@ -43,6 +44,5 @@ export default {
     display: 'block',
     lineHeight: '30px',
     borderBottom: '1px solid #fff'
-
   }
 }

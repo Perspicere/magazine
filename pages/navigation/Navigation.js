@@ -10,6 +10,9 @@
 
 import React, { PropTypes } from 'react'
 
+import {slide as Menu} from 'react-burger-menu'
+import stylesMenu from './styles.menu'
+
 import styles from './styles'
 
 export default class Navigation extends React.Component {
@@ -20,41 +23,44 @@ export default class Navigation extends React.Component {
 
   }
 
+  showSettings(event) {
+    event.preventDefault();
+
+  }
+
   render() {
     const {
       navigation,
-      // actions
       hideNavigation,
     } = this.props
 
-    // console.log(this.props)
-    if (!navigation.show) return <div></div>
-
     return (
-      <div style={styles.navigationWrap} className="navigation-wrap">
-        <div style={styles.TopBar}>
-          <div onClick={hideNavigation}>
-            <div color={'white'} />
-          </div>
+      <Menu width={'80%'} isOpen={ navigation.show } customBurgerIcon={ false } right styles={ stylesMenu } >
+
+        <div style={styles.navigationWrap} className="navigation-wrap">
+          {/*<div style={styles.TopBar}>*/}
+            {/*<div onClick={hideNavigation}>*/}
+              {/*<div color={'white'} />*/}
+            {/*</div>*/}
+          {/*</div>*/}
+         <div style={styles.content}>
+           {
+             navigation.modules.map((module) => {
+                  return <nav style={styles.nav}>
+
+                    <h2 style={styles.title}>{module.title}</h2>
+                    {
+                      module.items.map((item) => {
+                        return <a style={styles.link} href={item.link}> {item.title}</a>
+                      })
+                    }
+                  </nav>
+             })
+           }
+
+         </div>
         </div>
-
-       <div style={styles.content}>
-         {
-           navigation.modules.map((module) => {
-                return <nav style={styles.nav}>
-
-                  <h2 style={styles.title}>{module.title}</h2>
-                  {
-                    module.items.map((item) => {
-                      return <a style={styles.link} href={item.link}> {item.title}</a>
-                    })
-                  }
-                </nav>
-           })
-         }
-
-       </div>
-      </div>
+      </Menu>
 
     );
   }
