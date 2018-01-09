@@ -1,6 +1,10 @@
 > 模板使用： [**React Static Boilerplate**](https://github.com/kriasoft/react-static-boilerplate)。发布地址：https://perspicere.github.io/PerspicereMagazine/
 > 设计：https://modao.cc/workspace/apps/pD085D5F0A01503243168249
 
+### update 2018-01-08
+1. 在store/issues/issues.js加入使用备注。
+2. 引入[prettier](https://prettier.io/)，自动规范代码格式。`npm run format`启动prettier，`npm run format:check`检查需要调整的文档。
+
 ### update 2017-11-16
 
 1. 加入[PerspicereContent](https://github.com/Perspicere/PerspicereContent)项目用于存放每期杂志内容。该项目会由运营负责更新。
@@ -92,6 +96,11 @@ $ node run                      # Same as `npm start` or `node run start`
 ```
 
 启动发布模式： `node run start --release` ，也可以取消 HMR与React Hot Loader：`node run start --no-hmr`。应用的地址会在[http://localhost:3000/](http://localhost:3000/).
+
+使用prettier调整代码格式：
+```shell
+$ node run format
+```
 
 
 ### 测试
