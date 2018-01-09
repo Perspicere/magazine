@@ -47,12 +47,12 @@ export default class HomePage extends React.Component {
             contents.map((group) => {
               const chars = group.name.split('')
 
-              return <div>
+              return <div key={group.name}>
                   <SubjectBanner {...{ lText:chars[0], rText:chars[1] }} />
 
                 {
                   group.items.map((article)=>{
-                    return <ArticleCover {...article}/>
+                    return <ArticleCover key={article.title} {...article}/>
                   })
                 }
                 </div>

@@ -52,7 +52,7 @@ export default class Navigation extends React.Component {
                     <h2 style={styles.title}>{module.title}</h2>
                     {
                       module.items.map((item) => {
-                        return <a style={styles.link} href={item.link}> {item.title}</a>
+                        return <a key={item.title} style={styles.link} href={item.link}> {item.title}</a>
                       })
                     }
                   </nav>
