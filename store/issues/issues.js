@@ -7,11 +7,7 @@ import { Base64 } from 'js-base64'
 import fm from 'front-matter'
 
 class Issues {
-  constructor(
-    owner = 'Perspicere',
-    repo = 'PerspicereContent',
-    columns = ['心智', '此岸', '梦境']
-  ) {
+  constructor(owner = 'Perspicere', repo = 'PerspicereContent', columns = ['心智', '此岸', '梦境']) {
     // github account settings
     this.owner = owner
     this.repo = repo
@@ -46,12 +42,13 @@ class Issues {
   // helper function to parse responce, returns an object
   static parseData(data) {
     if (data.constructor === Array) {
-      return data.reduce((accumulated, current) => (
-        {
+      return data.reduce(
+        (accumulated, current) => ({
           ...accumulated,
           [current.name]: Issues.parseData(current)
-        }
-      ), {})
+        }),
+        {}
+      )
     }
 
     let content = null
@@ -59,7 +56,7 @@ class Issues {
       try {
         // try parsing it as json
         content = JSON.parse(Base64.decode(data.content))
-      } catch(err) {
+      } catch (err) {
         // if not simply decode data
         content = Base64.decode(data.content)
       }
@@ -108,12 +105,9 @@ class Issues {
   }
 
   // Get content from self. Pull and store if not available.
-  getContent = async (location) => {
+  getContent = async location => {
     let contentNode = Issues.locateLeaf(this.content, location) || {}
-    if (
-      Object.keys(contentNode).length === 0 && 
-      contentNode.constructor === Object
-    ) {
+    if (Object.keys(contentNode).length === 0 && contentNode.constructor === Object) {
       const data = await this.pullContent(location.join('/'))
       contentNode = Issues.parseData(data)
       this.content = Issues.appendLeaf(this.content, location, contentNode)
@@ -126,11 +120,11 @@ class Issues {
     try {
       if (!this.currentIssue) {
         const data = await this.getContent([])
-        this.currentIssue = Object
-          .keys(data).filter(entry =>
-            data[entry] &&
-            data[entry].constructor === Object // is a directory
-            ).reduce((a, b) => Math.max(parseInt(a.name), parseInt(b.name)))
+        this.currentIssue = Object.keys(data)
+          .filter(
+            entry => data[entry] && data[entry].constructor === Object // is a directory
+          )
+          .reduce((a, b) => Math.max(parseInt(a.name), parseInt(b.name)))
       }
       return this.currentIssue
     } catch (err) {
@@ -159,7 +153,8 @@ class Issues {
           name: col,
           items
         }
-      }))
+      })
+    )
 
     return {
       ...meta,

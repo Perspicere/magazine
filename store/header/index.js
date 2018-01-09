@@ -1,15 +1,14 @@
 const initialState = {
-  title: '',
+  title: ''
 }
 
 export default (state = initialState, action) => {
   const { type, payload } = action
   switch (type) {
-
     case 'HEADER_TITLE':
       return {
         ...state,
-        title: payload.title,
+        title: payload.title
       }
 
     default:

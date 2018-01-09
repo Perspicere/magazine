@@ -1,4 +1,3 @@
-
 import { createStore, combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
@@ -19,13 +18,9 @@ const appReducer = combineReducers({
   journalOne,
   issues,
 
-  routing: routerReducer,
+  routing: routerReducer
 })
 
-
-const store = createStore(
-  appReducer,
-  window.devToolsExtension ? window.devToolsExtension() : f => f
-)
+const store = createStore(appReducer, window.devToolsExtension ? window.devToolsExtension() : f => f)
 
 export default store

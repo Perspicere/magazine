@@ -4,28 +4,23 @@ export default class ArticleCover extends React.Component {
   static propTypes = {
     lText: PropTypes.string,
     rText: PropTypes.string
-
   }
   render() {
-
-    const { styles,
-      title, description, author, time, img, link } = this.props
+    const { styles, title, description, author, time, img, link } = this.props
     return (
-        <a href={link} style={{ ...styles.wrap, backgroundImage: `url(${img})` }} >
-          <div style={styles.innerWrap}>
-            <p style={styles.title}>{title}</p>
-            <div style={styles.description}>{description}</div>
-            <div style={styles.bottomWrap}>
-              <span style={styles.author}>{author}</span>
-              <span style={styles.time}>{time}</span>
-            </div>
+      <a href={link} style={{ ...styles.wrap, backgroundImage: `url(${img})` }}>
+        <div style={styles.innerWrap}>
+          <p style={styles.title}>{title}</p>
+          <div style={styles.description}>{description}</div>
+          <div style={styles.bottomWrap}>
+            <span style={styles.author}>{author}</span>
+            <span style={styles.time}>{time}</span>
           </div>
-        </a>
-
+        </div>
+      </a>
     )
   }
 }
-
 
 ArticleCover.defaultProps = {
   styles: {
@@ -34,13 +29,13 @@ ArticleCover.defaultProps = {
       color: '#fff',
       textDecoration: 'none',
       height: '200px',
-      backgroundColor:'#000',
+      backgroundColor: '#000'
     },
     innerWrap: {
-      width:'200px',
-      height:'120px',
+      width: '200px',
+      height: '120px',
       background: 'rgba(0, 0, 0, 0.6) none repeat scroll 0 0',
-      color:'#fff',
+      color: '#fff',
       padding: '20px'
     },
     title: {
@@ -50,11 +45,9 @@ ArticleCover.defaultProps = {
     description: {
       fontSize: '11px'
     },
-    bottomWrap:{
-      display:'flex',
-      justifyContent:'space-between'
+    bottomWrap: {
+      display: 'flex',
+      justifyContent: 'space-between'
     }
-
-  },
+  }
 }
-

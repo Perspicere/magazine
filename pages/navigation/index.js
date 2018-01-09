@@ -4,16 +4,12 @@ import Navigation from './Navigation'
 
 import { hideNavigation } from './actions'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { navigation } = state
 
   return {
-    navigation,
+    navigation
   }
 }
 
-export default connect(
-  mapStateToProps,
-  { hideNavigation }
-)(Navigation)
-
+export default connect(mapStateToProps, { hideNavigation })(Navigation)

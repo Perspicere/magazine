@@ -10,59 +10,60 @@
 
 import React, { PropTypes } from 'react'
 
-import {scaleRotate as Menu} from 'react-burger-menu'
+import { scaleRotate as Menu } from 'react-burger-menu'
 
 import stylesMenu from './styles.menu'
 
 import styles from './styles'
 
 export default class Navigation extends React.Component {
-
   static propTypes = {
     navigation: PropTypes.obj,
-    hideNavigation: PropTypes.func,
-
+    hideNavigation: PropTypes.func
   }
 
   showSettings(event) {
-    event.preventDefault();
-
+    event.preventDefault()
   }
 
   render() {
-    const {
-      navigation,
-      hideNavigation,
-    } = this.props
+    const { navigation, hideNavigation } = this.props
 
     return (
-      <Menu pageWrapId="page-wrap" outerContainerId="outer-container" width={'80%'} isOpen={ navigation.show } customBurgerIcon={ false } right styles={ stylesMenu } >
-
+      <Menu
+        pageWrapId="page-wrap"
+        outerContainerId="outer-container"
+        width={'80%'}
+        isOpen={navigation.show}
+        customBurgerIcon={false}
+        right
+        styles={stylesMenu}
+      >
         <div style={styles.navigationWrap} className="navigation-wrap">
           {/*<div style={styles.TopBar}>*/}
-            {/*<div onClick={hideNavigation}>*/}
-              {/*<div color={'white'} />*/}
-            {/*</div>*/}
+          {/*<div onClick={hideNavigation}>*/}
+          {/*<div color={'white'} />*/}
           {/*</div>*/}
-         <div style={styles.content}>
-           {
-             navigation.modules.map((module) => {
-                  return <nav style={styles.nav}>
-
-                    <h2 style={styles.title}>{module.title}</h2>
-                    {
-                      module.items.map((item) => {
-                        return <a key={item.title} style={styles.link} href={item.link}> {item.title}</a>
-                      })
-                    }
-                  </nav>
-             })
-           }
-
-         </div>
+          {/*</div>*/}
+          <div style={styles.content}>
+            {navigation.modules.map(module => {
+              return (
+                <nav style={styles.nav}>
+                  <h2 style={styles.title}>{module.title}</h2>
+                  {module.items.map(item => {
+                    return (
+                      <a key={item.title} style={styles.link} href={item.link}>
+                        {' '}
+                        {item.title}
+                      </a>
+                    )
+                  })}
+                </nav>
+              )
+            })}
+          </div>
         </div>
       </Menu>
-
-    );
+    )
   }
 }

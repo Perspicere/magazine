@@ -1,4 +1,4 @@
 export default {
   topBar: 50,
-  baseFont: 14,
+  baseFont: 14
 }

@@ -1,12 +1,11 @@
-
 export default {
   layoutWrap: {
-    position: 'relative',
+    position: 'relative'
   },
   LayoutContainer: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-start'
     // paddingTop: '50px',
-  },
+  }
 }

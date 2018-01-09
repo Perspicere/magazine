@@ -5,7 +5,7 @@ import styles from './styles'
 function TopicEntry() {
   return (
     <div style={styles.container}>
-      <img src={imgSrc} style={styles.image}/>
+      <img src={imgSrc} style={styles.image} />
     </div>
   )
 }

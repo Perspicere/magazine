@@ -9,26 +9,21 @@ import styles from './styles.js'
 import Navigation from '../navigation'
 
 export default class Layout extends React.Component {
-
   static propTypes = {
     className: PropTypes.string,
-    children: PropTypes.object,
-
+    children: PropTypes.object
   }
 
   render() {
     return (
       <div style={styles.layoutWrap} id="outer-container">
-        <Navigation/>
+        <Navigation />
 
         <div id="page-wrap" style={styles.LayoutContainer} className={this.props.className || ''}>
-          <Header/>
-          { this.props.children }
+          <Header />
+          {this.props.children}
         </div>
-
       </div>
-
     )
   }
 }
-

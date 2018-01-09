@@ -4,16 +4,13 @@ import Header from './Header'
 
 import { showNavigation } from '../navigation/actions'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { common, header } = state
 
   return {
     common,
-    header,
+    header
   }
 }
 
-export default connect(
-  mapStateToProps,
-  { showNavigation }
-)(Header)
+export default connect(mapStateToProps, { showNavigation })(Header)

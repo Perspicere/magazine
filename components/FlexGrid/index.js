@@ -10,13 +10,13 @@ export default function FlexGrid({ style, wrap, fill, mobileMediaQuery = mediaQu
         return (
           <div
             style={{
-              ...{display: 'flex', flexFlow: isMobile || wrap ? 'row wrap' : 'row nowrap'},
+              ...{ display: 'flex', flexFlow: isMobile || wrap ? 'row wrap' : 'row nowrap' },
               ...style
             }}
-            {...rest}>
-
+            {...rest}
+          >
             {React.Children.map(children, child => {
-              return React.cloneElement(child, {mobileMediaQuery, fill})
+              return React.cloneElement(child, { mobileMediaQuery, fill })
             })}
           </div>
         )
@@ -30,5 +30,5 @@ FlexGrid.propTypes = {
   wrap: PropTypes.bool,
   fill: PropTypes.bool,
   mobileMediaQuery: PropTypes.object, // Should be an object in the format understandable by json2mq
-  children: PropTypes.node,
+  children: PropTypes.node
 }

@@ -8,15 +8,14 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react';
-import Layout from '../layout';
-import s from './styles.css';
-import { title, html } from './index.md';
+import React from 'react'
+import Layout from '../layout'
+import s from './styles.css'
+import { title, html } from './index.md'
 
 class AboutPage extends React.Component {
-
   componentDidMount() {
-    document.title = title;
+    document.title = title
   }
 
   render() {
@@ -25,9 +24,8 @@ class AboutPage extends React.Component {
         <h1>{title}</h1>
         <div dangerouslySetInnerHTML={{ __html: html }} />
       </Layout>
-    );
+    )
   }
-
 }
 
-export default AboutPage;
+export default AboutPage

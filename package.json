@@ -73,6 +73,7 @@
     "postcss-nesting": "^2.3.1",
     "postcss-selector-matches": "^2.0.1",
     "postcss-selector-not": "^2.0.0",
+    "prettier": "1.9.2",
     "react-hot-loader": "^3.0.0-beta.2",
     "s3": "^4.4.0",
     "style-loader": "^0.13.1",
@@ -99,6 +100,12 @@
       "string-quotes": "single"
     }
   },
+  "prettier": {
+    "tabWidth": 2,
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true
+  },
   "scripts": {
     "eslint": "eslint components core pages test utils main.js run.js webpack.config.js",
     "stylelint": "stylelint \"components/**/*.css\" \"pages/**/*.css\"",
@@ -110,6 +117,9 @@
     "build:debug": "node run build --debug",
     "publish": "node run publish",
     "publish:debug": "node run publish --debug",
-    "start": "node run"
+    "start": "node run",
+    "__internal__prettier": "prettier '{components,pages,store,test,utils}/**/*.js'",
+    "format": "npm run __internal__prettier -- --write",
+    "format:check": "npm run __internal__prettier -- --list-different"
   }
 }

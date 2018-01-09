@@ -2,11 +2,12 @@ import colors from '../../components/styles/colors'
 import dims from '../../components/styles/dims'
 
 export default {
-  show:{ // todo 添加动画？
-    display: 'block',
+  show: {
+    // todo 添加动画？
+    display: 'block'
   },
-  hide:{
-    display: 'none',
+  hide: {
+    display: 'none'
   },
   navigationWrap: {
     position: 'relative',
@@ -17,7 +18,7 @@ export default {
     background: '#000',
     color: '#fff',
     zIndex: 2000,
-    overflow: 'auto',
+    overflow: 'auto'
   },
   // TopBar: {
   //   position: 'absolute',
@@ -34,11 +35,10 @@ export default {
     fontSize: '20px',
     fontWeight: 'bold',
     width: '70%',
-    float: 'right',
+    float: 'right'
   },
   title: {
     borderBottom: '1px solid #fff'
-
   },
   link: {
     display: 'block',

@@ -10,13 +10,13 @@ export default function Col({ style, width, fill, mobileMediaQuery, ...rest }) {
         // Mobile, take up the full container width
         if (isMobile) {
           flexProp = '0 0 100%'
-        // Specified width, fill mode
+          // Specified width, fill mode
         } else if (width && fill) {
           flexProp = `1 1 ${width}`
-        // Specified width, no fill
+          // Specified width, no fill
         } else if (width) {
           flexProp = `0 0 ${width}`
-        // Leave the sizing to flex
+          // Leave the sizing to flex
         } else {
           flexProp = '1 1 0'
         }
@@ -25,7 +25,7 @@ export default function Col({ style, width, fill, mobileMediaQuery, ...rest }) {
           <div
             style={{
               ...{ flex: flexProp },
-              ...style,
+              ...style
             }}
             {...rest}
           />
@@ -39,5 +39,5 @@ Col.propTypes = {
   style: PropTypes.object,
   width: PropTypes.string,
   fill: PropTypes.bool, // Injected by Grid parent
-  mobileMediaQuery: PropTypes.object, // Injected by Grid parent
+  mobileMediaQuery: PropTypes.object // Injected by Grid parent
 }

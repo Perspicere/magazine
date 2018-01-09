@@ -1,13 +1,11 @@
-
 import React, { PropTypes } from 'react'
 
 import Layout from '../layout'
 import styles from './styles.css'
 
 export default class DetailPage extends React.Component {
-
   static propTypes = {
-    params: PropTypes.object.isRequired,
+    params: PropTypes.object.isRequired
   }
 
   componentDidMount() {
@@ -24,13 +22,11 @@ export default class DetailPage extends React.Component {
 
     return (
       <Layout className="articles-detail">
-        <div  className={styles.markdownWrap}>
+        <div className={styles.markdownWrap}>
           <h1 className={styles.h1}>{title}</h1>
           <div dangerouslySetInnerHTML={{ __html: html }} />
         </div>
-
       </Layout>
     )
   }
-
 }

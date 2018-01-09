@@ -1,15 +1,12 @@
-
 import { connect } from 'react-redux'
 
 import DetailPage from './DetailPage'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { common } = state
   return {
-    common,
+    common
   }
 }
 
-export default connect(
-  mapStateToProps,
-)(DetailPage)
+export default connect(mapStateToProps)(DetailPage)

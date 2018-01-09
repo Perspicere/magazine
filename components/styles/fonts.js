@@ -5,5 +5,5 @@ export default {
   proximaRegular: 'ProximaNova-Regular',
   proximaSemiBold: 'ProximaNova-Semibold',
   proximaBold: 'ProximaNova-Bold',
-  ubuntuRegular: 'UbuntuMono-Regular',
+  ubuntuRegular: 'UbuntuMono-Regular'
 }
