@@ -1,12 +1,19 @@
-/*
-调用并储存期刊内容
-*/
-
 import axios from 'axios'
 import { Base64 } from 'js-base64'
 import fm from 'front-matter'
 
+/** 从github调用并在本地缓存期刊内容，返回Promise。主要函数：
+ * getContent: 调取特定期刊特定内容。如获取第1期“心智”子栏目中第2篇文章正文：getContent(['1', '心智', '2', 'article.md'])。
+ * getCurrentIssue: 获取最新期刊号，无需参数。
+ * getAbstracts: 获取所有文章简介，需要提供期刊号。
+ */
 class Issues {
+  /**
+   * 建立新期刊instance.
+   * @param {string} owner - github项目有所有者
+   * @param {string} PerspicereContent - github项目名称
+   * @param {array} columns - 各子栏目列表
+   */
   constructor(owner = 'Perspicere', repo = 'PerspicereContent', columns = ['心智', '此岸', '梦境']) {
     // github account settings
     this.owner = owner
@@ -39,7 +46,7 @@ class Issues {
     this.storage.setItem('content', JSON.stringify(tree))
   }
 
-  // helper function to parse responce, returns an object
+  // parse responce, returns an object
   static parseData(data) {
     if (data.constructor === Array) {
       return data.reduce(
@@ -68,7 +75,7 @@ class Issues {
     return content
   }
 
-  // helper function to location leaf note in a tree
+  // locate leaf note in a tree
   static locateLeaf(tree, location) {
     if (location.length === 0) {
       return tree
@@ -104,7 +111,11 @@ class Issues {
     }
   }
 
-  // Get content from self. Pull and store if not available.
+  /**
+   * 调用期刊内容.
+   * @param {string} location - 内容位置，描述目标repo文档结构。例如第1期“心智”子栏目中第2篇文章正文：['1', '心智', '2', 'article.md']。
+   * @return {object} 目标内容
+   */
   getContent = async location => {
     let contentNode = Issues.locateLeaf(this.content, location) || {}
     if (Object.keys(contentNode).length === 0 && contentNode.constructor === Object) {
@@ -115,7 +126,10 @@ class Issues {
     return contentNode
   }
 
-  // 获取最新期刊号
+  /**
+   * 获取最新期刊号。
+   * @return {int} 最新期刊号。
+   */
   getCurrentIssue = async () => {
     try {
       if (!this.currentIssue) {
@@ -132,7 +146,11 @@ class Issues {
     }
   }
 
-  // 获取期刊信息
+  /**
+   * 获取期刊所有文章简介。
+   * @param {int} issue - 期刊号。
+   * @return {object} 该期所有文章简介。
+   */
   getAbstracts = async issue => {
     // 本期信息
     const meta = await this.getContent([issue, 'meta.json'])
