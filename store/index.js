@@ -1,5 +1,6 @@
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { routerReducer } from 'react-router-redux'
+import promiseMiddleware from 'redux-promise-middleware'
 
 // 通用
 import common from './common'
@@ -16,11 +17,10 @@ const appReducer = combineReducers({
   header,
   navigation,
   journalOne,
-  issues,
-
   routing: routerReducer
 })
 
-const store = createStore(appReducer, window.devToolsExtension ? window.devToolsExtension() : f => f)
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(appReducer, { loading: true }, composeEnhancers(applyMiddleware(promiseMiddleware)))
+console.log({ state: store.getState() })
 export default store
