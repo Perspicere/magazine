@@ -1,1 +1,1 @@
-export issues from './issues'
+export magazineStorage from './magazineStorage'

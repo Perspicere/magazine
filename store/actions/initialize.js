@@ -1,12 +1,12 @@
-import { issues } from './utils'
-import types from './types'
+import { magazineStorage } from './utils'
 import store from '..'
+import types from './types'
 
 const initialize = () => {
-  store.dispatch({
+  return {
     type: types.INITIALIZE,
-    payload: issues.getAbstracts()
-  })
+    payload: Promise.all([magazineStorage.getCurrentIssue(), magazineStorage.getAbstracts()])
+  }
 }
 
 export default initialize

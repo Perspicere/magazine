@@ -22,9 +22,11 @@ export default class HomePage extends React.Component {
   }
 
   componentWillMount() {
-    const { initialize } = this.props
-    console.log('componentWillMount')
-    initialize()
+    const { initialize, issues } = this.props
+    const { fetching, currentIssue } = issues
+    if (!(fetching || (currentIssue && issues[currentIssue]))) {
+      initialize()
+    }
   }
 
   render() {

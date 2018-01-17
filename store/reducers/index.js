@@ -1,5 +1,5 @@
 export common from './common'
-export content from './content'
+export issues from './issues'
 export header from './header'
 export journalOne from './journalOne'
 export navigation from './navigation'

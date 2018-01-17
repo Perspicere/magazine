@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Base64 } from 'js-base64'
+import path from 'path'
 import fm from 'front-matter'
 
 /** 从github调用并在本地缓存期刊内容，返回Promise。主要函数：
@@ -7,7 +8,7 @@ import fm from 'front-matter'
  * getCurrentIssue: 获取最新期刊号，无需参数。
  * getAbstracts: 获取所有文章简介，需要提供期刊号。
  */
-class Issues {
+class magazineStorage {
   /**
    * 建立新期刊instance.
    * @param {string} owner - github项目有所有者
@@ -22,7 +23,7 @@ class Issues {
     // array of submodules
     this.columns = columns
 
-    // get local storage
+    // grap local storage
     this.storage = window.localStorage
 
     // github api
@@ -41,18 +42,32 @@ class Issues {
     return JSON.parse(content)
   }
 
-  // store content to local storage
+  // cache content to local storage
   set content(tree) {
     this.storage.setItem('content', JSON.stringify(tree))
   }
 
+  // get current issue number from local storage
+  get currentIssue() {
+    return this.storage.getItem('currentIssue')
+  }
+
+  // cache current issue number
+  set currentIssue(issue) {
+    this.storage.setItem('currentIssue', issue)
+  }
+
   // parse responce, returns an object
   static parseData(data) {
+    if (!data) {
+      return null
+    }
+
     if (data.constructor === Array) {
       return data.reduce(
         (accumulated, current) => ({
           ...accumulated,
-          [current.name]: Issues.parseData(current)
+          [current.name]: magazineStorage.parseData(current)
         }),
         {}
       )
@@ -81,7 +96,7 @@ class Issues {
       return tree
     }
     try {
-      return Issues.locateLeaf(tree[location[0]], location.slice(1))
+      return magazineStorage.locateLeaf(tree[location[0]], location.slice(1))
     } catch (err) {
       return null
     }
@@ -97,7 +112,7 @@ class Issues {
 
     return {
       ...tree,
-      [location[0]]: Issues.appendLeaf(tree[location[0]], location.slice(1), leaf)
+      [location[0]]: magazineStorage.appendLeaf(tree[location[0]], location.slice(1), leaf)
     }
   }
 
@@ -117,11 +132,11 @@ class Issues {
    * @return {object} 目标内容
    */
   getContent = async location => {
-    let contentNode = Issues.locateLeaf(this.content, location) || {}
+    let contentNode = magazineStorage.locateLeaf(this.content, location) || {}
     if (Object.keys(contentNode).length === 0 && contentNode.constructor === Object) {
-      const data = await this.pullContent(location.join('/'))
-      contentNode = Issues.parseData(data)
-      this.content = Issues.appendLeaf(this.content, location, contentNode)
+      const data = await this.pullContent(path.join(...location))
+      contentNode = magazineStorage.parseData(data)
+      this.content = magazineStorage.appendLeaf(this.content, location, contentNode)
     }
     return contentNode
   }
@@ -134,11 +149,12 @@ class Issues {
     try {
       if (!this.currentIssue) {
         const data = await this.getContent([])
-        this.currentIssue = Object.keys(data)
+        const test = Object.keys(data)
           .filter(
             entry => data[entry] && data[entry].constructor === Object // is a directory
           )
-          .reduce((a, b) => Math.max(parseInt(a.name), parseInt(b.name)))
+          .reduce((a, b) => Math.max(parseInt(a), parseInt(b)))
+        this.currentIssue = test
       }
       return this.currentIssue
     } catch (err) {
@@ -152,7 +168,6 @@ class Issues {
    * @return {object} 该期所有文章简介。
    */
   getAbstracts = async issue => {
-    console.log('getAbstracts')
     // 默认获取最新一期
     let issueNumber = issue
     if (!issue) {
@@ -188,4 +203,4 @@ class Issues {
   }
 }
 
-export default Issues
+export default new magazineStorage()

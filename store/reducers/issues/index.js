@@ -5,39 +5,31 @@ const actionTypes = {
 }
 
 const defaultState = {
-  content: {
-    loading: true,
-    error: false
-  }
+  fetching: false,
+  error: false
 }
 
-export default function content(state = defaultState, action) {
-  console.log({action})
+export default function issues(state = defaultState, action) {
   switch (action.type) {
     case `${actionTypes.INITIALIZE}_FULFILLED`:
       return {
         ...state,
-        content: {
-          ...action.payload,
-          error: false,
-          loading: false
-        }
+        currentIssue: action.payload[0],
+        [action.payload[0]]: action.payload[1],
+        error: false,
+        fetching: false
       }
     case `${actionTypes.INITIALIZE}_REJECTED`:
       return {
         ...state,
-        content: {
-          error: true,
-          loading: false
-        }
+        error: action.payload,
+        fetching: false
       }
     case `${actionTypes.INITIALIZE}_PENDING`:
       return {
         ...state,
-        content: {
-          error: false,
-          loading: true
-        }
+        error: false,
+        fetching: true
       }
     default:
       return state
