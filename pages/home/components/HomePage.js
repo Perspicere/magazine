@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 
 import Layout from '../../layout'
+import Loader from './Loader'
 // import TopicEntry from '../../components/TopicEntry'
 
 import Instruction from './Instruction'
@@ -30,8 +31,17 @@ export default class HomePage extends React.Component {
   }
 
   render() {
-    const { title, welcome, description, mainImg, contents } = this.props
-
+    const { title, welcome, description, mainImg, contents, issues } = this.props
+    if (issues.fetching) {
+      return (
+        <div>
+          <Layout>
+            <div style={styles.loaderContainer}>
+              <Loader />
+            </div>
+          </Layout>
+        </div>)
+    }
     return (
       <div>
         <Layout>

@@ -5,5 +5,12 @@ export default {
   },
   image: {
     width: '100%'
+  },
+  loaderContainer: {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
   }
 }
