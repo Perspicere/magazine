@@ -1,26 +1,19 @@
+// external
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { routerReducer } from 'react-router-redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import promiseMiddleware from 'redux-promise-middleware'
-
-// 通用
-import common from './common'
-import header from './header'
-
-import navigation from './navigation'
-
-// 每个期刊一个目录
-import journalOne from './journalOne'
-import issues from './issues'
+// local
+import { common, content, header, journalOne, navigation } from './reducers'
 
 const appReducer = combineReducers({
   common,
   header,
   navigation,
+  content,
   journalOne,
   routing: routerReducer
 })
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(appReducer, { loading: true }, composeEnhancers(applyMiddleware(promiseMiddleware)))
-console.log({ state: store.getState() })
+const store = createStore(appReducer, composeWithDevTools(applyMiddleware(promiseMiddleware())))
 export default store

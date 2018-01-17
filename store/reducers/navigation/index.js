@@ -7,7 +7,6 @@ const initialState = {
 
 // reducers
 export default (state = initialState, action) => {
-  console.log('navigation reducer')
   switch (action.type) {
     case 'NAVIGATION.SHOW':
       return {

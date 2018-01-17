@@ -152,18 +152,25 @@ class Issues {
    * @return {object} 该期所有文章简介。
    */
   getAbstracts = async issue => {
+    console.log('getAbstracts')
+    // 默认获取最新一期
+    let issueNumber = issue
+    if (!issue) {
+      issueNumber = await this.getCurrentIssue()
+    }
+
     // 本期信息
-    const meta = await this.getContent([issue, 'meta.json'])
+    const meta = await this.getContent([issueNumber, 'meta.json'])
 
     const contents = await Promise.all(
       // 各栏目
       this.columns.map(async col => {
         // 栏目文章列表
-        const colTable = await this.getContent([issue, col])
+        const colTable = await this.getContent([issueNumber, col])
         const items = await Promise.all(
           // 各文章元信息
           Object.keys(colTable).map(async article => {
-            const source = await this.getContent([issue, col, article, 'article.md'])
+            const source = await this.getContent([issueNumber, col, article, 'article.md'])
             return fm(source).attributes
           })
         )

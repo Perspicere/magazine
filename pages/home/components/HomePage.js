@@ -21,6 +21,12 @@ export default class HomePage extends React.Component {
     }
   }
 
+  componentWillMount() {
+    const { initialize } = this.props
+    console.log('componentWillMount')
+    initialize()
+  }
+
   render() {
     const { title, welcome, description, mainImg, contents } = this.props
 
