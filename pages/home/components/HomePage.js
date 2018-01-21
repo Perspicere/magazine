@@ -23,16 +23,16 @@ export default class HomePage extends React.Component {
   }
 
   componentWillMount() {
-    const { initialize, issues } = this.props
-    const { fetching, currentIssue } = issues
-    if (!(fetching || (currentIssue && issues[currentIssue]))) {
+    const { initialize, content } = this.props
+    const { fetching, issue, articles } = content
+    if (!(fetching || (issue && articles))) {
       initialize()
     }
   }
 
   render() {
-    const { title, welcome, description, mainImg, contents, issues } = this.props
-    if (issues.fetching) {
+    const { title, welcome, description, mainImg, contents, content } = this.props
+    if (content.fetching) {
       return (
         <div>
           <Layout>
@@ -40,7 +40,8 @@ export default class HomePage extends React.Component {
               <Loader />
             </div>
           </Layout>
-        </div>)
+        </div>
+      )
     }
     return (
       <div>

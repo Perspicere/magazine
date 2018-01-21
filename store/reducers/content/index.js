@@ -9,13 +9,12 @@ const defaultState = {
   error: false
 }
 
-export default function issues(state = defaultState, action) {
+export default function content(state = defaultState, action) {
   switch (action.type) {
     case `${actionTypes.INITIALIZE}_FULFILLED`:
       return {
         ...state,
-        currentIssue: action.payload[0],
-        [action.payload[0]]: action.payload[1],
+        ...action.payload,
         error: false,
         fetching: false
       }

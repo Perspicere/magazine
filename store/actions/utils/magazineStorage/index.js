@@ -1,10 +1,13 @@
+// external imports
 import axios from 'axios'
 import { Base64 } from 'js-base64'
 import path from 'path'
 import fm from 'front-matter'
+// local imports
+import zipObject from '../zipObject'
 
 /** 从github调用并在本地缓存期刊内容，返回Promise。主要函数：
- * getContent: 调取特定期刊特定内容。如获取第1期“心智”子栏目中第2篇文章正文：getContent(['1', '心智', '2', 'article.md'])。
+ * getContent: 调取特定期刊特定内容。如获取第1期“心智”子栏目中第2篇文章正文：getContent(['issues', '1', '心智', '2', 'article.md'])。
  * getCurrentIssue: 获取最新期刊号，无需参数。
  * getAbstracts: 获取所有文章简介，需要提供期刊号。
  */
@@ -29,6 +32,10 @@ class magazineStorage {
     // github api
     this.github = axios.create({
       baseURL: 'https://api.github.com/',
+      auth: {
+        username: 'guoliu',
+        password: '91ffeecc2b7439d6a141461ee0320a7ec38aa5a8'
+      },
       timeout: 10000
     })
   }
@@ -128,7 +135,7 @@ class magazineStorage {
 
   /**
    * 调用期刊内容.
-   * @param {string} location - 内容位置，描述目标repo文档结构。例如第1期“心智”子栏目中第2篇文章正文：['1', '心智', '2', 'article.md']。
+   * @param {string} location - 内容位置，描述目标repo文档结构。例如第1期“心智”子栏目中第2篇文章正文：['issues', '1', '心智', '2', 'article.md']。
    * @return {object} 目标内容
    */
   getContent = async location => {
@@ -148,13 +155,12 @@ class magazineStorage {
   getCurrentIssue = async () => {
     try {
       if (!this.currentIssue) {
-        const data = await this.getContent([])
-        const test = Object.keys(data)
+        const data = await this.getContent(['issues'])
+        this.currentIssue = Object.keys(data)
           .filter(
             entry => data[entry] && data[entry].constructor === Object // is a directory
           )
           .reduce((a, b) => Math.max(parseInt(a), parseInt(b)))
-        this.currentIssue = test
       }
       return this.currentIssue
     } catch (err) {
@@ -167,39 +173,56 @@ class magazineStorage {
    * @param {int} issue - 期刊号。
    * @return {object} 该期所有文章简介。
    */
-  getAbstracts = async issue => {
+  getIssueAbstract = async issue => {
     // 默认获取最新一期
     let issueNumber = issue
     if (!issue) {
       issueNumber = await this.getCurrentIssue()
     }
 
-    // 本期信息
-    const meta = await this.getContent([issueNumber, 'meta.json'])
-
-    const contents = await Promise.all(
-      // 各栏目
-      this.columns.map(async col => {
+    const issueContent = await Promise.all(
+      this.columns.map(async column => {
         // 栏目文章列表
-        const colTable = await this.getContent([issueNumber, col])
-        const items = await Promise.all(
-          // 各文章元信息
-          Object.keys(colTable).map(async article => {
-            const source = await this.getContent([issueNumber, col, article, 'article.md'])
-            return fm(source).attributes
-          })
-        )
-        return {
-          name: col,
-          items
-        }
-      })
+        const articleList = Object.keys(await this.getContent(['issues', issueNumber, column]))
+        // 各文章元信息
+        const columnContent = await Promise.all(articleList.map( article => this.getContent(['issues', issueNumber, column, article, 'article.md']).then(
+          source => fm(source).attributes
+        )))
+        return zipObject(articleList, columnContent)
+        })
     )
+    // 各栏目
+
+    // 本期信息
+    const meta = await this.getContent(['issues', issueNumber, 'meta.json'])
 
     return {
       ...meta,
-      contents
+      content: zipObject(this.columns, issueContent)
     }
+  }
+
+  /**
+   * 获取期刊所有单篇文章。
+   * @return {object} 所有单篇文章。
+   * TODO: 仅返回一定数量各子栏目最新文章
+   */
+  getArticleAbstract = async () => {
+    // 各栏目
+    const articlesContent = await Promise.all(
+      this.columns.map(async column => {
+        // 栏目文章列表
+        const articleList = Object.keys(await this.getContent(['articles', column]))
+        // 各文章元信息
+        const columnContent = await Promise.all(
+          articleList.map(article =>
+            this.getContent(['articles', column, article, 'article.md']).then(source => fm(source).attributes)
+          )
+        )
+        return zipObject(articleList, columnContent)
+      })
+    )
+    return zipObject(this.columns, articlesContent)
   }
 }
 

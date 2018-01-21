@@ -4,13 +4,13 @@ import { routerReducer } from 'react-router-redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import promiseMiddleware from 'redux-promise-middleware'
 // local
-import { common, issues, header, journalOne, navigation } from './reducers'
+import { common, content, header, journalOne, navigation } from './reducers'
 
 const appReducer = combineReducers({
   common,
   header,
   navigation,
-  issues,
+  content,
   journalOne,
   routing: routerReducer
 })
