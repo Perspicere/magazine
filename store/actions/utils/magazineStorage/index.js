@@ -5,7 +5,7 @@ import path from 'path'
 import fm from 'front-matter'
 // local imports
 import zipObject from '../zipObject'
-import { decode } from 'punycode';
+import { decode } from 'punycode'
 
 /** 从github调用并在本地缓存期刊内容，返回Promise。主要函数：
  * getContent: 调取特定期刊特定内容。如获取第1期“心智”子栏目中第2篇文章正文：getContent(['issues', '1', '心智', '2', 'article.md'])。
@@ -29,6 +29,9 @@ class magazineStorage {
 
     // grap local storage
     this.storage = window.localStorage
+
+    // keys to be replaced with content
+    this.fileReplace = ['img', 'image']
 
     // github api
     this.github = axios.create({
@@ -83,7 +86,7 @@ class magazineStorage {
     }
 
     if (data.content) {
-      const ext = path.extname(data.path) 
+      const ext = path.extname(data.path)
       const content = Base64.decode(data.content)
       if (ext === '.md') {
         // if it's a markdown file, we need to parse it and get the meta info
@@ -146,12 +149,21 @@ class magazineStorage {
    * @return {object} 目标内容
    */
   getContent = async location => {
+    // 尝试从本地获取
     let contentNode = magazineStorage.locateLeaf(this.content, location) || {}
-    if (Object.keys(contentNode).length === 0 && contentNode.constructor === Object) {
+    // 本地无值，从远程调用
+    if (contentNode.constructor === Object && Object.keys(contentNode).length === 0) {
       const data = await this.pullContent(path.join(...location))
       contentNode = magazineStorage.parseData(data)
-      if (typeof yourVariable === 'object') {
-        // 替换图片
+      const nodeFields = Object.keys(contentNode)
+
+      // 将json中路径替换为文件内容，例如图片
+      if (contentNode.constructor === Object && nodeFields.length > 0) {
+        const replaceFields = nodeFields.filter(field => this.fileReplace.includes(field))
+        const fileContents = await Promise.all(
+          replaceFields.map(field => this.getContent([...location.slice(0, -1), field]))
+        )
+        contentNode = { ...contentNode, ...zipObject(replaceFields, fileContents) }
       }
       this.content = magazineStorage.appendLeaf(this.content, location, contentNode)
     }
@@ -195,9 +207,11 @@ class magazineStorage {
         // 栏目文章列表
         const articleList = Object.keys(await this.getContent(['issues', issueNumber, column]))
         // 各文章元信息
-        const columnContent = await Promise.all(articleList.map( article => this.getContent(['issues', issueNumber, column, article, 'article.md'])))
+        const columnContent = await Promise.all(
+          articleList.map(article => this.getContent(['issues', issueNumber, column, article, 'article.md']))
+        )
         return zipObject(articleList, columnContent)
-        })
+      })
     )
     // 各栏目
 
@@ -223,9 +237,7 @@ class magazineStorage {
         const articleList = Object.keys(await this.getContent(['articles', column]))
         // 各文章元信息
         const columnContent = await Promise.all(
-          articleList.map(article =>
-            this.getContent(['articles', column, article, 'article.md'])
-          )
+          articleList.map(article => this.getContent(['articles', column, article, 'article.md']))
         )
         return zipObject(articleList, columnContent)
       })
