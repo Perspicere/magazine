@@ -5,6 +5,7 @@ import path from 'path'
 import fm from 'front-matter'
 // local imports
 import zipObject from '../zipObject'
+import { decode } from 'punycode';
 
 /** 从github调用并在本地缓存期刊内容，返回Promise。主要函数：
  * getContent: 调取特定期刊特定内容。如获取第1期“心智”子栏目中第2篇文章正文：getContent(['issues', '1', '心智', '2', 'article.md'])。
@@ -34,7 +35,7 @@ class magazineStorage {
       baseURL: 'https://api.github.com/',
       auth: {
         username: 'guoliu',
-        password: '91ffeecc2b7439d6a141461ee0320a7ec38aa5a8'
+        password: '21c42382124aa13ea39a64d554617b19893ad9fa'
       },
       timeout: 10000
     })
@@ -70,6 +71,7 @@ class magazineStorage {
       return null
     }
 
+    // if we get an array, parse every element
     if (data.constructor === Array) {
       return data.reduce(
         (accumulated, current) => ({
@@ -80,21 +82,26 @@ class magazineStorage {
       )
     }
 
-    let content = null
     if (data.content) {
-      try {
-        // try parsing it as json
-        content = JSON.parse(Base64.decode(data.content))
-      } catch (err) {
-        // if not simply decode data
-        content = Base64.decode(data.content)
+      const ext = path.extname(data.path) 
+      const content = Base64.decode(data.content)
+      if (ext === '.md') {
+        // if it's a markdown file, we need to parse it and get the meta info
+        const { attributes, body } = fm(content)
+        return {
+          ...attributes,
+          body
+        }
+      } else if (ext === '.json') {
+        // if it's a json, parse it
+        return JSON.parse(content)
       }
+      return content
     } else if (data.type === 'dir') {
       // if we get a directory
-      content = {}
+      return {}
     }
-
-    return content
+    return null
   }
 
   // locate leaf note in a tree
@@ -135,7 +142,7 @@ class magazineStorage {
 
   /**
    * 调用期刊内容.
-   * @param {string} location - 内容位置，描述目标repo文档结构。例如第1期“心智”子栏目中第2篇文章正文：['issues', '1', '心智', '2', 'article.md']。
+   * @param {string} location - 内容位置，描述目标文档位置。例如第1期“心智”子栏目中第2篇文章正文：['issues', '1', '心智', '2', 'article.md']。
    * @return {object} 目标内容
    */
   getContent = async location => {
@@ -143,6 +150,9 @@ class magazineStorage {
     if (Object.keys(contentNode).length === 0 && contentNode.constructor === Object) {
       const data = await this.pullContent(path.join(...location))
       contentNode = magazineStorage.parseData(data)
+      if (typeof yourVariable === 'object') {
+        // 替换图片
+      }
       this.content = magazineStorage.appendLeaf(this.content, location, contentNode)
     }
     return contentNode
@@ -185,9 +195,7 @@ class magazineStorage {
         // 栏目文章列表
         const articleList = Object.keys(await this.getContent(['issues', issueNumber, column]))
         // 各文章元信息
-        const columnContent = await Promise.all(articleList.map( article => this.getContent(['issues', issueNumber, column, article, 'article.md']).then(
-          source => fm(source).attributes
-        )))
+        const columnContent = await Promise.all(articleList.map( article => this.getContent(['issues', issueNumber, column, article, 'article.md'])))
         return zipObject(articleList, columnContent)
         })
     )
@@ -216,7 +224,7 @@ class magazineStorage {
         // 各文章元信息
         const columnContent = await Promise.all(
           articleList.map(article =>
-            this.getContent(['articles', column, article, 'article.md']).then(source => fm(source).attributes)
+            this.getContent(['articles', column, article, 'article.md'])
           )
         )
         return zipObject(articleList, columnContent)
