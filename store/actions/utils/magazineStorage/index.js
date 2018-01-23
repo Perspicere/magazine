@@ -27,8 +27,8 @@ class magazineStorage {
     // array of submodules
     this.columns = columns
 
-    // grap local storage
-    this.storage = window.localStorage
+    // grap window storage
+    this.storage = window.sessionStorage
 
     // keys to be replaced with content
     this.fileReplace = ['img', 'image']
@@ -36,27 +36,28 @@ class magazineStorage {
     // github api
     this.github = axios.create({
       baseURL: 'https://api.github.com/',
-      auth: {
-        username: 'guoliu',
-        password: '21c42382124aa13ea39a64d554617b19893ad9fa'
-      },
+      // auth: {
+      //   username: 'guoliu',
+      //   password: ''
+      // },
       timeout: 10000
     })
   }
 
   // get content from local storage
-  get content() {
-    let content = this.storage.getItem('content')
-    if (!content) {
-      return {}
-    }
-    return JSON.parse(content)
-  }
+  // 总数据大小超过5mb限制，需要优化存储
+  // get content() {
+  //   let content = this.storage.getItem('content')
+  //   if (!content) {
+  //     return {}
+  //   }
+  //   return JSON.parse(content)
+  // }
 
-  // cache content to local storage
-  set content(tree) {
-    this.storage.setItem('content', JSON.stringify(tree))
-  }
+  // // cache content to local storage
+  // set content(tree) {
+  //   this.storage.setItem('content', JSON.stringify(tree))
+  // }
 
   // get current issue number from local storage
   get currentIssue() {
@@ -89,7 +90,7 @@ class magazineStorage {
       const ext = path.extname(data.path)
       const content = Base64.decode(data.content)
       if (ext === '.md') {
-        // if it's a markdown file, we need to parse it and get the meta info
+        // if it's a markdown file, parse it and get meta info
         const { attributes, body } = fm(content)
         return {
           ...attributes,
@@ -139,7 +140,8 @@ class magazineStorage {
       const res = await this.github.get(`/repos/${this.owner}/${this.repo}/contents/${path}`)
       return res.data
     } catch (err) {
-      console.log(err)
+      console.warn((`Error pulling data from ${path}, null value will be returned instead`: err))
+      return null
     }
   }
 
@@ -155,13 +157,14 @@ class magazineStorage {
     if (contentNode.constructor === Object && Object.keys(contentNode).length === 0) {
       const data = await this.pullContent(path.join(...location))
       contentNode = magazineStorage.parseData(data)
-      const nodeFields = Object.keys(contentNode)
 
       // 将json中路径替换为文件内容，例如图片
-      if (contentNode.constructor === Object && nodeFields.length > 0) {
-        const replaceFields = nodeFields.filter(field => this.fileReplace.includes(field))
+      if (contentNode && contentNode.constructor === Object && Object.keys(contentNode).length > 0) {
+        const replaceFields = Object.keys(contentNode).filter(field => this.fileReplace.includes(field))
         const fileContents = await Promise.all(
-          replaceFields.map(field => this.getContent([...location.slice(0, -1), field]))
+          replaceFields.map(field =>
+            this.getContent([...location.slice(0, -1), contentNode[field]]).then(value => value || contentNode[field])
+          )
         )
         contentNode = { ...contentNode, ...zipObject(replaceFields, fileContents) }
       }
@@ -175,19 +178,15 @@ class magazineStorage {
    * @return {int} 最新期刊号。
    */
   getCurrentIssue = async () => {
-    try {
-      if (!this.currentIssue) {
-        const data = await this.getContent(['issues'])
-        this.currentIssue = Object.keys(data)
-          .filter(
-            entry => data[entry] && data[entry].constructor === Object // is a directory
-          )
-          .reduce((a, b) => Math.max(parseInt(a), parseInt(b)))
-      }
-      return this.currentIssue
-    } catch (err) {
-      console.log(err)
+    if (!this.currentIssue) {
+      const data = await this.getContent(['issues'])
+      this.currentIssue = Object.keys(data)
+        .filter(
+          entry => data[entry] && data[entry].constructor === Object // is a directory
+        )
+        .reduce((a, b) => Math.max(parseInt(a), parseInt(b)))
     }
+    return this.currentIssue
   }
 
   /**
@@ -213,7 +212,6 @@ class magazineStorage {
         return zipObject(articleList, columnContent)
       })
     )
-    // 各栏目
 
     // 本期信息
     const meta = await this.getContent(['issues', issueNumber, 'meta.json'])
