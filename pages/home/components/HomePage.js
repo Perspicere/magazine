@@ -1,5 +1,5 @@
-import React, { PropTypes } from 'react'
-
+import React from 'react'
+import PropTypes from 'prop-types'
 import Layout from '../../layout'
 import Loader from './Loader'
 // import TopicEntry from '../../components/TopicEntry'
@@ -32,7 +32,8 @@ export default class HomePage extends React.Component {
 
   render() {
     const { title, welcome, description, mainImg, contents, content } = this.props
-    if (content.fetching) {
+    const { issue, articles } = content
+    if (content.fetching || !issue || !articles) {
       return (
         <div>
           <Layout>
@@ -43,9 +44,24 @@ export default class HomePage extends React.Component {
         </div>
       )
     }
+
+    const columns = Object.keys(articles)
+
     return (
       <div>
         <Layout>
+          <div>
+            {columns.map(column => (
+              <div key={`articles-${column}`}>
+                <SubjectBanner {...{ lText: column[0], rText: column[1] }} />
+
+                {Object.keys(articles[column]).map(article => {
+                  return <ArticleCover key={`articles-${column}-${article}`} {...articles[column][article]} />
+                })}
+              </div>
+            ))}
+          </div>
+
           <div style={styles.imageContainer}>
             <img src={mainImg} style={styles.image} />
           </div>

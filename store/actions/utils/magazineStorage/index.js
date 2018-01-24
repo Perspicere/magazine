@@ -3,9 +3,10 @@ import axios from 'axios'
 import { Base64 } from 'js-base64'
 import path from 'path'
 import fm from 'front-matter'
+import crypto from 'crypto'
 // local imports
 import zipObject from '../zipObject'
-import { decode } from 'punycode'
+import decrypt from '../decrypt'
 
 /** 从github调用并在本地缓存期刊内容，返回Promise。主要函数：
  * getContent: 调取特定期刊特定内容。如获取第1期“心智”子栏目中第2篇文章正文：getContent(['issues', '1', '心智', '2', 'article.md'])。
@@ -16,7 +17,7 @@ class magazineStorage {
   /**
    * 建立新期刊instance.
    * @param {string} owner - github项目有所有者
-   * @param {string} PerspicereContent - github项目名称
+   * @param {string} repo - github项目名称
    * @param {array} columns - 各子栏目列表
    */
   constructor(owner = 'Perspicere', repo = 'PerspicereContent', columns = ['心智', '此岸', '梦境']) {
@@ -34,12 +35,15 @@ class magazineStorage {
     this.fileReplace = ['img', 'image']
 
     // github api
+    // github 禁止使用明文储存access token，此处使用加密token
+    // 新生成token之后可以通过encrypt函数加密
+    // TODO: use OAuth?
     this.github = axios.create({
       baseURL: 'https://api.github.com/',
-      // auth: {
-      //   username: 'guoliu',
-      //   password: ''
-      // },
+      auth: {
+        username: 'guoliu',
+        password: decrypt('6a1975233d2505057cfced9c0c847f9c99f97f8f54df8f4cd90d4d3949d8dff02afdac79c3dec4a9135fad4a474f8288')
+      },
       timeout: 10000
     })
   }
