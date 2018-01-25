@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
+import styles from './styles'
 
 export default class ArticleCover extends React.Component {
   static propTypes = {
@@ -6,17 +8,18 @@ export default class ArticleCover extends React.Component {
     rText: PropTypes.string
   }
   render() {
-    const { styles, title, description, author, time, img, link } = this.props
-    console.log({img})
+    const { title, description, author, time, img, link } = this.props
     return (
-      <a href={link} style={{ ...styles.wrap, backgroundImage: `url(${img})` }}>
-        {/* <img src={img}/> */}
-        <div style={styles.innerWrap}>
-          <p style={styles.title}>{title}</p>
-          <div style={styles.description}>{description}</div>
-          <div style={styles.bottomWrap}>
-            <span style={styles.author}>{author}</span>
-            <span style={styles.time}>{time}</span>
+      <a href={link}>
+        <div style={styles.articleCover}>
+          <img src={img} style={styles.articleCoverImage}/>
+          <div style={styles.coverShade}>
+            <p style={styles.title}>{title}</p>
+            <div style={styles.description}>{description}</div>
+            <div style={styles.bottomWrap}>
+              <span style={styles.author}>{author}</span>
+              <span style={styles.time}>{time}</span>
+            </div>
           </div>
         </div>
       </a>
