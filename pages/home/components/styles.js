@@ -2,7 +2,8 @@ export default {
   articleCover: {
     display: 'flex',
     width: '100%',
-    height: 250
+    height: 250,
+    position: 'relative'
   },
   articleCoverImage: {
     objectFit: 'cover',
@@ -13,13 +14,11 @@ export default {
   coverShade: {
     position: 'absolute',
     background: 'rgba(0, 0, 0, 0.6)',
-    width: 280,
-    height: 160,
-    paddingLeft: 28,
-    paddingRight: 28,
-    paddingTop: 20,
-    paddingBottom: 20,
-    color: 'white'
+    width: '70%',
+    height: '55%',
+    padding: '3% 5%',
+    color: 'white',
+    fontSize: '12'
   },
   coverContent: {
     zIndex: 99
