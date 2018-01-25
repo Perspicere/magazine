@@ -34,6 +34,9 @@ class magazineStorage {
     // keys to be replaced with content
     this.fileReplace = ['img', 'image']
 
+    // image extensions, for data URI
+    this.imageExt = ['.png', '.gif', '.jpg']
+
     // github api
     // github 禁止使用明文储存access token，此处使用加密token
     // 新生成token之后可以通过encrypt函数加密
@@ -73,45 +76,6 @@ class magazineStorage {
     this.storage.setItem('currentIssue', issue)
   }
 
-  // parse responce, returns an object
-  static parseData(data) {
-    if (!data) {
-      return null
-    }
-
-    // if we get an array, parse every element
-    if (data.constructor === Array) {
-      return data.reduce(
-        (accumulated, current) => ({
-          ...accumulated,
-          [current.name]: magazineStorage.parseData(current)
-        }),
-        {}
-      )
-    }
-
-    if (data.content) {
-      const ext = path.extname(data.path)
-      const content = Base64.decode(data.content)
-      if (ext === '.md') {
-        // if it's a markdown file, parse it and get meta info
-        const { attributes, body } = fm(content)
-        return {
-          ...attributes,
-          body
-        }
-      } else if (ext === '.json') {
-        // if it's a json, parse it
-        return JSON.parse(content)
-      }
-      return content
-    } else if (data.type === 'dir') {
-      // if we get a directory
-      return {}
-    }
-    return null
-  }
-
   // locate leaf note in a tree
   static locateLeaf(tree, location) {
     if (location.length === 0) {
@@ -149,6 +113,57 @@ class magazineStorage {
     }
   }
 
+    // parse responce, returns an object
+  parseData = data => {
+      if (!data) {
+        return null
+      }
+  
+      // if we get an array, parse every element
+      if (data.constructor === Array) {
+        return data.reduce(
+          (accumulated, current) => ({
+            ...accumulated,
+            [current.name]: this.parseData(current)
+          }),
+          {}
+        )
+      }
+  
+      if (data.content) {
+        const ext = path.extname(data.path)
+  
+        // if we get an image, return the data
+        if (this.imageExt.includes(ext)) {
+          return data.content
+        }
+  
+        // if not, decode and parse it
+        const content = Base64.decode(data.content)
+        // if it's a markdown file, parse it and get meta info
+        if (ext === '.md') {
+          const { attributes, body } = fm(content)
+          return {
+            ...attributes,
+            body
+          }
+        }
+  
+        if (ext === '.json') {
+          // if it's a json, parse it
+          return JSON.parse(content)
+        }
+        return content
+      }
+  
+      if (data.type === 'dir') {
+        // if we get a directory
+        return {}
+      }
+  
+      return null
+    }
+
   /**
    * 调用期刊内容.
    * @param {string} location - 内容位置，描述目标文档位置。例如第1期“心智”子栏目中第2篇文章正文：['issues', '1', '心智', '2', 'article.md']。
@@ -160,14 +175,24 @@ class magazineStorage {
     // 本地无值，从远程调用
     if (contentNode.constructor === Object && Object.keys(contentNode).length === 0) {
       const data = await this.pullContent(path.join(...location))
-      contentNode = magazineStorage.parseData(data)
+      contentNode = this.parseData(data)
 
       // 将json中路径替换为文件内容，例如图片
       if (contentNode && contentNode.constructor === Object && Object.keys(contentNode).length > 0) {
         const replaceFields = Object.keys(contentNode).filter(field => this.fileReplace.includes(field))
         const fileContents = await Promise.all(
           replaceFields.map(field =>
-            this.getContent([...location.slice(0, -1), contentNode[field]]).then(value => value || contentNode[field])
+            this.getContent([...location.slice(0, -1), contentNode[field]])
+              .then(value => {
+                if (!value) {
+                  return contentNode[field]
+                }
+                const fileExt = path.extname(contentNode[field])
+                if (this.imageExt.includes(fileExt)) {
+                  return `data:image/${fileExt.slice(1)};base64,${value}`
+                }
+                return value
+              })
           )
         )
         contentNode = { ...contentNode, ...zipObject(replaceFields, fileContents) }

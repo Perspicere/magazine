@@ -7,9 +7,10 @@ export default class ArticleCover extends React.Component {
   }
   render() {
     const { styles, title, description, author, time, img, link } = this.props
-    // console.log({img})
+    console.log({img})
     return (
       <a href={link} style={{ ...styles.wrap, backgroundImage: `url(${img})` }}>
+        {/* <img src={img}/> */}
         <div style={styles.innerWrap}>
           <p style={styles.title}>{title}</p>
           <div style={styles.description}>{description}</div>
