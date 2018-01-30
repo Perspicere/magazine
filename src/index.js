@@ -8,7 +8,6 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 
 import store from './store'
-import routes from './routes'
 
 // todo 组件数目若太多改为按需加载？
 import Home from './pages/home'
