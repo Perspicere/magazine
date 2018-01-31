@@ -112,7 +112,7 @@ class magazineStorage {
       const res = await this.github.get(`/repos/${this.owner}/${this.repo}/contents/${path.join(...location)}`)
       return res.data
     } catch (err) {
-      console.warn(`Error pulling data from ${path}, null value will be returned instead`, err)
+      console.warn(`Error pulling data from [${location.join(', ')}], null value will be returned instead`, err)
       return null
     }
   }

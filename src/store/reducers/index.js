@@ -1,7 +1,7 @@
 import common from './common'
-import content from './content'
+import createContentReducer from './content'
 import header from './header'
 import journalOne from './journalOne'
 import navigation from './navigation'
 
-export { common, content, header, journalOne, navigation }
+export { common, createContentReducer, header, journalOne, navigation }

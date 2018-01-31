@@ -1,26 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { connect } from 'react-redux'
+
 import Layout from '../layout'
 import styles from './styles.css'
 
-export default class DetailPage extends React.Component {
+class DetailPage extends React.Component {
   static propTypes = {
-    params: PropTypes.object.isRequired
+    match: PropTypes.object.isRequired
   }
 
   componentDidMount() {
-    // document.title = title;
+    const { createArticleAction, article, match } = this.props
+    // const { fetching, issue, ...rest } = article
+    if (!article) {
+      createArticleAction([match.url, 'article.md'])
+    }
+    console.log({ match })
   }
 
   render() {
-    const { module, name } = this.props
+    const { module, name, article, match } = this.props
 
     // 动态加载？
     const title = 'test title'
     const html = '<div> test </div>'
 
-    console.log(styles)
+    console.log(this.props)
 
     return (
       <Layout className="articles-detail">
@@ -32,3 +39,12 @@ export default class DetailPage extends React.Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  const { common } = state
+  return {
+    common
+  }
+}
+
+export default connect(mapStateToProps)(DetailPage)

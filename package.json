@@ -25,13 +25,17 @@
     "precommit": "lint-staged"
   },
   "devDependencies": {
+    "babel-plugin-transform-export-extensions": "^6.22.0",
     "husky": "^0.14.3",
     "lint-staged": "^6.1.0",
     "prettier": "^1.10.2",
     "redux-devtools-extension": "^2.13.2"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": ["prettier --write", "git add"]
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "prettier": {
     "tabWidth": 2,

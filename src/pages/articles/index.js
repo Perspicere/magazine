@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
-
 import DetailPage from './DetailPage'
+import React from 'react'
+import { Route } from 'react-router-dom'
 
-const mapStateToProps = state => {
-  const { common } = state
-  return {
-    common
-  }
-}
+import { createArticleAction } from '../../store/actions'
 
-export default connect(mapStateToProps)(DetailPage)
+const article = () => (
+  <Route path="/articles/:article" component={connect(state => state.article, { createArticleAction })(DetailPage)} />
+)
+
+export default article

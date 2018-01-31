@@ -1,3 +1,4 @@
 export default {
-  INITIALIZE: 'INITIALIZE'
+  INITIALIZE: 'INITIALIZE',
+  ARTICLE: 'ARTICLE'
 }
