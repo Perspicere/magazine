@@ -1,6 +1,8 @@
 import React from 'react'
+import { Route, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import styles from './styles'
+import Articles from '../../articles'
 
 export default class ArticleCover extends React.Component {
   static propTypes = {
@@ -8,21 +10,26 @@ export default class ArticleCover extends React.Component {
     rText: PropTypes.string
   }
   render() {
-    const { title, description, author, time, img, link } = this.props
+    const { title, description, author, time, img, url } = this.props
     return (
-      <a href={link}>
-        <div style={styles.articleCover}>
-          <img src={img} style={styles.articleCoverImage} />
-          <div style={styles.coverShade}>
-            <p style={styles.title}>{title}</p>
-            <div style={styles.description}>{description}</div>
-            <div style={styles.bottomWrap}>
-              <span style={styles.author}>{author}</span>
-              <span style={styles.time}>{time}</span>
+      <Route
+        path={url}
+        children={({ match }) => (
+          <Link to={url}>
+            <div style={styles.articleCover}>
+              <img src={img} style={styles.articleCoverImage} />
+              <div style={styles.coverShade}>
+                <p style={styles.title}>{title}</p>
+                <div style={styles.description}>{description}</div>
+                <div style={styles.bottomWrap}>
+                  <span style={styles.author}>{author}</span>
+                  <span style={styles.time}>{time}</span>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </a>
+          </Link>
+        )}
+      />
     )
   }
 }

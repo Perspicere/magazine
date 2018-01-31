@@ -57,7 +57,13 @@ export default class HomePage extends React.Component {
                 <SubjectBanner {...{ lText: column[0], rText: column[1] }} />
 
                 {Object.keys(articles[column]).map(article => {
-                  return <ArticleCover key={`articles-${column}-${article}`} {...articles[column][article]} />
+                  return (
+                    <ArticleCover
+                      key={`articles-${column}-${article}`}
+                      url={`articles/${article}`}
+                      {...articles[column][article]}
+                    />
+                  )
                 })}
               </div>
             ))}
@@ -77,7 +83,13 @@ export default class HomePage extends React.Component {
                 <SubjectBanner {...{ lText: column[0], rText: column[1] }} />
 
                 {Object.keys(issue.content[column]).map(article => {
-                  return <ArticleCover key={`issue-${column}-${article}`} {...issue.content[column][article]} />
+                  return (
+                    <ArticleCover
+                      key={`issue-${column}-${article}`}
+                      url={`issues/${'test'}/${article}`}
+                      {...issue.content[column][article]}
+                    />
+                  )
                 })}
               </div>
             ))}

@@ -14,7 +14,7 @@ export default class DetailPage extends React.Component {
   }
 
   render() {
-    const { module, name } = this.props.params
+    const { module, name } = this.props
 
     // 动态加载？
     const title = 'test title'
