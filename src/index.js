@@ -18,10 +18,12 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
-        <Route path="/" component={Home}  />
-        <Route path="/about" component={About}  />
-        <Route path="/articles/:module/:name" component={Articles}  />
+        <Route path="/" component={Home} />
+        <Route path="/about" component={About} />
+        <Route path="/articles/:module/:name" component={Articles} />
       </div>
     </BrowserRouter>
-  </Provider>, document.getElementById('root'))
+  </Provider>,
+  document.getElementById('root')
+)
 registerServiceWorker()

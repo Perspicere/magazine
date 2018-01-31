@@ -4,10 +4,4 @@ import zipObject from './zipObject'
 import decrypt from './decrypt'
 import encrypt from './encrypt'
 
-export {
-  magazineStorage,
-  objectPromiseAll,
-  zipObject,
-  decrypt,
-  encrypt
-}
+export { magazineStorage, objectPromiseAll, zipObject, decrypt, encrypt }

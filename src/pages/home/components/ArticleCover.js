@@ -12,7 +12,7 @@ export default class ArticleCover extends React.Component {
     return (
       <a href={link}>
         <div style={styles.articleCover}>
-          <img src={img} style={styles.articleCoverImage}/>
+          <img src={img} style={styles.articleCoverImage} />
           <div style={styles.coverShade}>
             <p style={styles.title}>{title}</p>
             <div style={styles.description}>{description}</div>

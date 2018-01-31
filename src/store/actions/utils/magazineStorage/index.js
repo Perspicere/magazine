@@ -31,20 +31,22 @@ class magazineStorage {
     this.storage = window.sessionStorage
 
     // keys to be replaced with content
-    this.fileReplace = ['img', 'image']
+    this.urlReplace = ['img', 'image']
 
-    // image extensions, for data URI
-    this.imageExt = ['.png', '.gif', '.jpg']
+    // github api
+    this.baseURL = 'https://api.github.com/'
 
     // github api
     // github 禁止使用明文储存access token，此处使用加密token
     // 新生成token之后可以通过encrypt函数加密
     // TODO: use OAuth?
     this.github = axios.create({
-      baseURL: 'https://api.github.com/',
+      baseURL: this.baseURL,
       auth: {
         username: 'guoliu',
-        password: decrypt('6a1975233d2505057cfced9c0c847f9c99f97f8f54df8f4cd90d4d3949d8dff02afdac79c3dec4a9135fad4a474f8288')
+        password: decrypt(
+          '6a1975233d2505057cfced9c0c847f9c99f97f8f54df8f4cd90d4d3949d8dff02afdac79c3dec4a9135fad4a474f8288'
+        )
       },
       timeout: 10000
     })
@@ -101,67 +103,62 @@ class magazineStorage {
     }
   }
 
+  buildURL = location => `/repos/${this.owner}/${this.repo}/contents/${path.join(...location)}`
+
   // pull content from github with given path
-  pullContent = async path => {
+  pullContent = async location => {
     try {
-      const res = await this.github.get(`/repos/${this.owner}/${this.repo}/contents/${path}`)
+      const res = await this.github.get(this.buildURL(location))
       return res.data
     } catch (err) {
-      console.warn((`Error pulling data from ${path}, null value will be returned instead`: err))
+      console.warn(`Error pulling data from ${path}, null value will be returned instead`, err)
       return null
     }
   }
 
-    // parse responce, returns an object
+  // parse responce, returns an object
   parseData = data => {
-      if (!data) {
-        return null
-      }
-  
-      // if we get an array, parse every element
-      if (data.constructor === Array) {
-        return data.reduce(
-          (accumulated, current) => ({
-            ...accumulated,
-            [current.name]: this.parseData(current)
-          }),
-          {}
-        )
-      }
-  
-      if (data.content) {
-        const ext = path.extname(data.path)
-  
-        // if we get an image, return the data
-        if (this.imageExt.includes(ext)) {
-          return data.content
-        }
-  
-        // if not, decode and parse it
-        const content = Base64.decode(data.content)
-        // if it's a markdown file, parse it and get meta info
-        if (ext === '.md') {
-          const { attributes, body } = fm(content)
-          return {
-            ...attributes,
-            body
-          }
-        }
-  
-        if (ext === '.json') {
-          // if it's a json, parse it
-          return JSON.parse(content)
-        }
-        return content
-      }
-  
-      if (data.type === 'dir') {
-        // if we get a directory
-        return {}
-      }
-  
+    if (!data) {
       return null
     }
+
+    // if we get an array, parse every element
+    if (data.constructor === Array) {
+      return data.reduce(
+        (accumulated, current) => ({
+          ...accumulated,
+          [current.name]: this.parseData(current)
+        }),
+        {}
+      )
+    }
+
+    if (data.content) {
+      const ext = path.extname(data.path)
+      const content = Base64.decode(data.content)
+      // if it's a markdown file, parse it and get meta info
+      if (ext === '.md') {
+        const { attributes, body } = fm(content)
+        return {
+          ...attributes,
+          body
+        }
+      }
+
+      if (ext === '.json') {
+        // if it's a json, parse it
+        return JSON.parse(content)
+      }
+      return content
+    }
+
+    if (data.type === 'dir') {
+      // if we get a directory
+      return {}
+    }
+
+    return null
+  }
 
   /**
    * 调用期刊内容.
@@ -173,28 +170,16 @@ class magazineStorage {
     let contentNode = magazineStorage.locateLeaf(this.content, location) || {}
     // 本地无值，从远程调用
     if (contentNode.constructor === Object && Object.keys(contentNode).length === 0) {
-      const data = await this.pullContent(path.join(...location))
+      const data = await this.pullContent(location)
       contentNode = this.parseData(data)
 
-      // 将json中路径替换为文件内容，例如图片
+      // 将json中路径替换为url，例如图片
       if (contentNode && contentNode.constructor === Object && Object.keys(contentNode).length > 0) {
-        const replaceFields = Object.keys(contentNode).filter(field => this.fileReplace.includes(field))
-        const fileContents = await Promise.all(
-          replaceFields.map(field =>
-            this.getContent([...location.slice(0, -1), contentNode[field]])
-              .then(value => {
-                if (!value) {
-                  return contentNode[field]
-                }
-                const fileExt = path.extname(contentNode[field])
-                if (this.imageExt.includes(fileExt)) {
-                  return `data:image/${fileExt.slice(1)};base64,${value}`
-                }
-                return value
-              })
-          )
+        const URLkeys = Object.keys(contentNode).filter(field => this.urlReplace.includes(field))
+        const URLs = URLkeys.map(key =>
+          path.join(this.baseURL, ...this.buildURL([...location.slice(0, -1), contentNode[key]]))
         )
-        contentNode = { ...contentNode, ...zipObject(replaceFields, fileContents) }
+        contentNode = { ...contentNode, ...zipObject(URLkeys, URLs) }
       }
       this.content = magazineStorage.appendLeaf(this.content, location, contentNode)
     }

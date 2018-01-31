@@ -1,4 +1,4 @@
-import initialize from "./initialize"
+import initialize from './initialize'
 import types from './types'
 import utils from './utils'
 
