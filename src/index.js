@@ -17,9 +17,9 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
-        <Route path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/articles/:module/:name" component={Articles} />
+        <Route path="/:module/:column/:article" component={Articles} exact={true} />
+        <Route path="/about" component={About} exact={true} />
+        <Route path="/" component={Home} exact={true} />
       </div>
     </BrowserRouter>
   </Provider>,

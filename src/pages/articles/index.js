@@ -5,8 +5,6 @@ import { Route } from 'react-router-dom'
 
 import { createArticleAction } from '../../store/actions'
 
-const article = () => (
-  <Route path="/articles/:article" component={connect(state => state.article, { createArticleAction })(DetailPage)} />
-)
+const article = connect(state => state.article, { createArticleAction })(DetailPage)
 
 export default article

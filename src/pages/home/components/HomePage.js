@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Layout from '../../layout'
-import Loader from './Loader'
+import { Loader } from '../../../components'
 // import TopicEntry from '../../components/TopicEntry'
 
 import Instruction from './Instruction'
@@ -60,7 +60,7 @@ export default class HomePage extends React.Component {
                   return (
                     <ArticleCover
                       key={`articles-${column}-${article}`}
-                      url={`articles/${article}`}
+                      url={`articles/${column}/${article}`}
                       {...articles[column][article]}
                     />
                   )
@@ -86,7 +86,7 @@ export default class HomePage extends React.Component {
                   return (
                     <ArticleCover
                       key={`issue-${column}-${article}`}
-                      url={`issues/${'test'}/${article}`}
+                      url={`issues/${column}/${article}`}
                       {...issue.content[column][article]}
                     />
                   )
