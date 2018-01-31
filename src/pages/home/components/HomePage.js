@@ -31,7 +31,7 @@ export default class HomePage extends React.Component {
   }
 
   render() {
-    const { title, welcome, description, mainImg, contents, content } = this.props
+    const { title, welcome, description, mainImg, content } = this.props
     const { issue, articles } = content
     if (content.fetching || !issue || !articles) {
       return (
@@ -45,13 +45,14 @@ export default class HomePage extends React.Component {
       )
     }
 
-    const columns = Object.keys(articles)
+    const articleColumns = Object.keys(articles)
+    const issueColumns = Object.keys(issue.content)
 
     return (
       <div>
         <Layout>
           <div>
-            {columns.map(column => (
+            {articleColumns.map(column => (
               <div key={`articles-${column}`}>
                 <SubjectBanner {...{ lText: column[0], rText: column[1] }} />
 
@@ -62,25 +63,25 @@ export default class HomePage extends React.Component {
             ))}
           </div>
 
-          <div style={styles.imageContainer}>
-            <img src={mainImg} style={styles.image} />
+          <div>
+            <div style={styles.imageContainer}>
+              <img src={mainImg} style={styles.image} />
+            </div>
+
+            <Instruction {...{ title, welcome, description, mainImg }} />
           </div>
 
-          <Instruction {...{ title, welcome, description, mainImg }} />
+          <div>
+            {issueColumns.map(column => (
+              <div key={`issue-${column}`}>
+                <SubjectBanner {...{ lText: column[0], rText: column[1] }} />
 
-          {contents.map(group => {
-            const chars = group.name.split('')
-
-            return (
-              <div key={group.name}>
-                <SubjectBanner {...{ lText: chars[0], rText: chars[1] }} />
-
-                {group.items.map(article => {
-                  return <ArticleCover key={article.title} {...article} />
+                {Object.keys(issue.content[column]).map(article => {
+                  return <ArticleCover key={`issue-${column}-${article}`} {...issue.content[column][article]} />
                 })}
               </div>
-            )
-          })}
+            ))}
+          </div>
         </Layout>
       </div>
     )

@@ -103,12 +103,13 @@ class magazineStorage {
     }
   }
 
-  buildURL = location => `/repos/${this.owner}/${this.repo}/contents/${path.join(...location)}`
+  // build url for image
+  imageURL = location => `https://github.com/${this.owner}/${this.repo}/raw/master/${path.join(...location)}`
 
   // pull content from github with given path
   pullContent = async location => {
     try {
-      const res = await this.github.get(this.buildURL(location))
+      const res = await this.github.get(`/repos/${this.owner}/${this.repo}/contents/${path.join(...location)}`)
       return res.data
     } catch (err) {
       console.warn(`Error pulling data from ${path}, null value will be returned instead`, err)
@@ -176,9 +177,7 @@ class magazineStorage {
       // 将json中路径替换为url，例如图片
       if (contentNode && contentNode.constructor === Object && Object.keys(contentNode).length > 0) {
         const URLkeys = Object.keys(contentNode).filter(field => this.urlReplace.includes(field))
-        const URLs = URLkeys.map(key =>
-          path.join(this.baseURL, ...this.buildURL([...location.slice(0, -1), contentNode[key]]))
-        )
+        const URLs = URLkeys.map(key => this.imageURL([...location.slice(0, -1), contentNode[key]]))
         contentNode = { ...contentNode, ...zipObject(URLkeys, URLs) }
       }
       this.content = magazineStorage.appendLeaf(this.content, location, contentNode)
@@ -245,7 +244,7 @@ class magazineStorage {
     const articlesContent = await Promise.all(
       this.columns.map(async column => {
         // 栏目文章列表
-        const articleList = Object.keys(await this.getContent(['articles', column]))
+        const articleList = Object.keys((await this.getContent(['articles', column])) || {})
         // 各文章元信息
         const columnContent = await Promise.all(
           articleList.map(article => this.getContent(['articles', column, article, 'article.md']))

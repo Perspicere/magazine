@@ -1,5 +1,4 @@
 import { magazineStorage, objectPromiseAll } from './utils'
-import store from '..'
 import types from './types'
 
 const initialize = () => {
