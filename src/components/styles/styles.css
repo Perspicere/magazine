@@ -1,0 +1,53 @@
+h1 {
+  font-family: 'AvenirNext-Medium';
+  font-size: 26px;
+  color: #3ba3f8;
+}
+
+h2 {
+  font-family: 'AvenirNext-Medium';
+  font-size: 20px;
+  color: #404b5a;
+}
+
+h3 {
+  font-family: 'AvenirNext-Medium';
+  font-size: 14px;
+  color: #404b5a;
+}
+
+h4 {
+  font-family: 'ProximaNova-Regular';
+  font-size: 14px;
+  color: #404b5a;
+}
+
+p {
+  font-family: 'ProximaNova-Regular';
+  font-size: 14px;
+  color: #404b5a;
+}
+
+.buttonLabel {
+  font-family: 'ProximaNova-Body';
+  font-size: 13px;
+  color: #404b5a;
+}
+
+.label {
+  font-family: 'ProximaNova-Medium';
+  font-size: 13px;
+  color: #404b5a;
+}
+
+.placeholder {
+  font-family: 'ProximaNova-Regular';
+  font-size: 13px;
+  color: #404b5a;
+}
+
+.activeText {
+  font-family: 'ProximaNova-Semibold';
+  color: #3ba3f8;
+  font-size: 13px;
+}
