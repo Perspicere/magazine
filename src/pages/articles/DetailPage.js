@@ -15,9 +15,11 @@ class DetailPage extends React.Component {
 
   componentDidMount() {
     const { createArticleAction, article, match, body, fetching } = this.props
-    // const { fetching, issue, ...rest } = article
+
+    const regex = new RegExp(`\/?${process.env.PUBLIC_URL}\/?`)
+    const articlePath = match.url.replace(regex, '/')
     if (!body && !fetching) {
-      createArticleAction([match.url, 'article.md'])
+      createArticleAction([articlePath, 'article.md'])
     }
   }
 

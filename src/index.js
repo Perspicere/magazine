@@ -13,13 +13,16 @@ import Home from './pages/home'
 import About from './pages/about'
 import Articles from './pages/articles'
 
+// production public url
+const baseUrl = process.env.PUBLIC_URL
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <div>
-        <Route path="/:module/:column/:article" component={Articles} exact={true} />
-        <Route path="/about" component={About} exact={true} />
-        <Route path="/" component={Home} exact={true} />
+        <Route path={baseUrl + '/'} component={Home} exact={true} />
+        <Route path={baseUrl + '/about'} component={About} exact={true} />
+        <Route path={baseUrl + '/:module/:column/:article'} component={Articles} exact={true} />
       </div>
     </BrowserRouter>
   </Provider>,

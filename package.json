@@ -2,9 +2,11 @@
   "name": "magazine-viewer",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://perspicere.github.io/magazine",
   "dependencies": {
     "axios": "^0.17.1",
     "front-matter": "^2.3.0",
+    "gh-pages": "^1.1.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-burger-menu": "^2.2.3",
@@ -19,6 +21,8 @@
     "redux-promise-middleware": "^5.0.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
