@@ -53,19 +53,19 @@ class magazineStorage {
   }
 
   // get content from local storage
-  // 总数据大小超过5mb限制，需要优化存储
-  // get content() {
-  //   let content = this.storage.getItem('content')
-  //   if (!content) {
-  //     return {}
-  //   }
-  //   return JSON.parse(content)
-  // }
+  // 总数据大小如果超过5mb限制，需要优化存储
+  get content() {
+    let content = this.storage.getItem('content')
+    if (!content) {
+      return {}
+    }
+    return JSON.parse(content)
+  }
 
-  // // cache content to local storage
-  // set content(tree) {
-  //   this.storage.setItem('content', JSON.stringify(tree))
-  // }
+  // cache content to local storage
+  set content(tree) {
+    this.storage.setItem('content', JSON.stringify(tree))
+  }
 
   // get current issue number from local storage
   get currentIssue() {
@@ -140,9 +140,14 @@ class magazineStorage {
       // if it's a markdown file, parse it and get meta info
       if (ext === '.md') {
         const { attributes, body } = fm(content)
+        // replace image paths
+        const bodyWithUrl = body.replace(
+          /(!\[.*?\]\()(.*)(\)\s)/,
+          (_, prev, url, post) => `${prev}${this.imageURL([...data.path.split('/').slice(0, -1), url])}${post}`
+        )
         return {
           ...attributes,
-          body
+          body: bodyWithUrl
         }
       }
 
