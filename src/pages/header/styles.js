@@ -4,11 +4,11 @@ import dims from '../../components/styles/dims'
 export default {
   TopBar: {
     height: dims.topBar,
-    backgroundColor: colors.black,
-    color: colors.white
+    backgroundColor: colors.white,
+    borderBottom: `1px solid ${colors.black}`
   },
   title: {
-    color: colors.white,
+    color: colors.black,
     fontSize: 20,
     position: 'fixed',
     left: '50%',
