@@ -5,7 +5,7 @@ export default {
   TopBar: {
     height: dims.topBar,
     backgroundColor: colors.white,
-    borderBottom: `1px solid ${colors.black}`,
+    borderBottom: `0.2px solid ${colors.black}`,
     display: 'flex'
   },
   title: {
