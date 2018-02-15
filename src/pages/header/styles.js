@@ -5,7 +5,8 @@ export default {
   TopBar: {
     height: dims.topBar,
     backgroundColor: colors.white,
-    borderBottom: `1px solid ${colors.black}`
+    borderBottom: `1px solid ${colors.black}`,
+    display: 'flex'
   },
   title: {
     color: colors.black,
@@ -14,6 +15,16 @@ export default {
     left: '50%',
     transform: 'translate(-50%, 0)',
     height: dims.topBar,
+    display: 'flex',
+    alignItems: 'center'
+  },
+  menuIcon: {
+    zIndex: 1000,
+    position: 'fixed',
+    width: 24,
+    height: 20,
+    right: 10,
+    top: 15,
     display: 'flex',
     alignItems: 'center'
   }
